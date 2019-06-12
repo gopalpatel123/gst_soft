@@ -85,6 +85,11 @@ $this->set('title', 'Edit Customer');
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
+									<label>Countries <span class="required">*</span></label>
+									<?php echo $this->Form->control('countries_id',['class'=>'form-control input-sm select2me','label'=>false,'empty'=>'-Countries-', 'options' => $countries,'required'=>'required']); ?>
+								</div>
+
+								<div class="form-group">
 									<label>State <span class="required">*</span></label>
 									<?php echo $this->Form->control('state_id',['class'=>'form-control input-sm select2me','label'=>false,'empty'=>'-State-', 'options' => $states,'required'=>'required']); ?>
 								</div>

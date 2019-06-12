@@ -24,9 +24,11 @@ class CustomersController extends AppController
 		$company_id=$this->Auth->User('session_company_id');
 		$search=$this->request->query('search');
 		$this->paginate = [
-            'contain' => ['States'],
+            'contain' => ['States','Countries'],
 			'limit' => 100
         ];
+		
+		
         $customers = $this->paginate($this->Customers->find()->where(['Customers.company_id'=>$company_id])->where([
 		'OR' => [
             'Customers.name LIKE' => '%'.$search.'%',
@@ -54,8 +56,10 @@ class CustomersController extends AppController
     public function view($id = null)
     {
         $customer = $this->Customers->get($id, [
-            'contain' => ['States', 'Ledgers']
+            'contain' => ['Countries','States', 'Ledgers'],
         ]);
+		
+		
 
         $this->set('customer', $customer);
         $this->set('_serialize', ['customer']);
@@ -144,7 +148,23 @@ class CustomersController extends AppController
 							->find('List')->toArray();
 		$accountingGroups[$SundryDebtor->id]=$SundryDebtor->name;
 		ksort($accountingGroups);
-        $states = $this->Customers->States->  find('list',
+        $countries = $this->Customers->Countries->  find('list',
+													['keyField' => function ($row) {
+														return $row['id'];
+													},
+													'valueField' => function ($row) 
+													{
+														if($row['countries_code']<=9)
+														{
+															return str_pad($this->_properties['countries_code'], 1, '0', STR_PAD_LEFT).$row['countries_code'].'-'. $row['name'] ;
+														}
+														else
+														{
+															return $row['countries_code'].'-'. $row['name'] ;
+														}
+													}]);
+													
+		$states = $this->Customers->States->  find('list',
 													['keyField' => function ($row) {
 														return $row['id'];
 													},
@@ -176,7 +196,7 @@ class CustomersController extends AppController
 														}
 													}]);
 		
-        $this->set(compact('customer', 'states','cities','accountingGroups'));
+        $this->set(compact('customer', 'countries', 'states','cities','accountingGroups'));
         $this->set('_serialize', ['customer', 'accountingGroups']);
     }
 
@@ -256,7 +276,22 @@ class CustomersController extends AppController
 		ksort($accountingGroups);
 		$account_entry  = $this->Customers->Ledgers->AccountingEntries->find()->where(['ledger_id'=>$customer->ledger->id,'company_id'=>$company_id,'is_opening_balance'=>'yes'])->first();
 		//pr($account_entry->toArray());exit;
-        $states = $this->Customers->States->find('list',
+        $countries = $this->Customers->Countries->find('list',
+												['keyField' => function ($row) {
+													return $row['id'];
+												},
+												'valueField' => function ($row) 
+												{
+													if($row['countries_code']<=9)
+														{
+															return str_pad($this->_properties['countries_code'], 1, '0', STR_PAD_LEFT).$row['countries_code'].'-'. $row['name'] ;
+														}
+														else
+														{
+															return $row['countries_code'].'-'. $row['name'] ;
+														}
+												}]);
+		 $states = $this->Customers->States->find('list',
 												['keyField' => function ($row) {
 													return $row['id'];
 												},
@@ -288,7 +323,7 @@ class CustomersController extends AppController
 														}
 													}]);
 		
-		$this->set(compact('customer', 'states','cities','accountingGroups','account_entry'));
+		$this->set(compact('customer', 'countries', 'states','cities','accountingGroups','account_entry'));
         $this->set('_serialize', ['customer']);
     }
 

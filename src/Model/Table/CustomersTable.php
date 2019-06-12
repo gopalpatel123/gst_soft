@@ -37,7 +37,12 @@ class CustomersTable extends Table
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
 
-        $this->belongsTo('States', [
+        $this->belongsTo('Countries', [
+            'foreignKey' => 'countries_id',
+            'joinType' => 'INNER'
+        ]); 
+		
+		$this->belongsTo('States', [
             'foreignKey' => 'state_id',
             'joinType' => 'INNER'
         ]);

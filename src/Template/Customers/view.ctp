@@ -25,6 +25,11 @@
             <td><?= h($customer->name) ?></td>
         </tr>
         <tr>
+            <th scope="row"><?= __('Countries') ?></th>
+            <td><?= $customer->has('countries') ? $this->Html->link($customer->countries->name, ['controller' => 'Countries', 'action' => 'view', $customer->countries->id]) : '' ?></td>
+        </tr>
+		
+		<tr>
             <th scope="row"><?= __('State') ?></th>
             <td><?= $customer->has('state') ? $this->Html->link($customer->state->name, ['controller' => 'States', 'action' => 'view', $customer->state->id]) : '' ?></td>
         </tr>

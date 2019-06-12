@@ -33,6 +33,7 @@ $this->set('title', 'Customers');
 						<tr>
 							<th scope="col" class="actions"><?= __('Sr') ?></th>
 							<th scope="col"><?= $this->Paginator->sort('name') ?></th>
+							<th scope="col"><?= $this->Paginator->sort('countries') ?></th>
 							<th scope="col"><?= $this->Paginator->sort('state') ?></th>
 							<th scope="col"><?= $this->Paginator->sort('GSTIN') ?></th>
 							<th scope="col"><?= $this->Paginator->sort('email') ?></th>
@@ -45,7 +46,9 @@ $this->set('title', 'Customers');
 						<tr>
 							<td><?= h(++$page_no) ?></td>
 							<td><?= h(str_pad($customer->customer_id, 4, '0', STR_PAD_LEFT).' - '.$customer->name) ?></td>
+							<td><?= h($customer->country->name) ?></td>
 							<td><?= h($customer->state->name) ?></td>
+							
 							<td><?= $customer->gstin ?></td>
 							<td><?= h($customer->email) ?></td>
 							<td><?= h($customer->mobile) ?></td>
