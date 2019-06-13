@@ -5,6 +5,7 @@
 $this->set('title', 'Edit Customer');
 ?>
 <div class="row">
+	<div class="col-md-2"></div>
 	<div class="col-md-8">
 		<div class="portlet light ">
 			<div class="portlet-title">
@@ -200,8 +201,42 @@ $this->set('title', 'Edit Customer');
 										</tr>
 									</tfoot>
 									</table>
-						</div>
-				   </div>
+								</div>
+						   </div>
+						   
+							<div class="row">
+								<div class="table-responsive">
+									<table id="main_table" class="table table-condensed table-bordered" style="margin-bottom: 4px;" width="100%">
+										<thead>
+											<tr align="center">
+												<td><label>Sr<label></td>
+												<td><label>Name<label></td>
+												<td><label>Mobile<label></td>
+												<td><label>Email<label></td>
+												<td><label>Address<label></td>
+												<td></td>
+											</tr>
+										</thead>
+										<tbody id='main_tbody' class="tab">
+										<?php foreach($customer->customer_addresses as $customer_address){ ?>
+										<tr class="main_tr">
+											<td width="7%" align="center"><?php echo @$i+1;?></td>
+											<td width="" align="center"><?php echo $this->Form->input('name', ['label' => false,'class' => 'form-control input-sm rightAligntextClass  quantity','placeholder'=>'Name','required','value'=>$customer_address->name]); ?></td>
+											<td width="" align="center"><?php echo $this->Form->input('mobile', ['label' => false,'class' => 'form-control input-sm rightAligntextClass  quantity','placeholder'=>'Mobile','required','value'=>$customer_address->mobile]); ?></td>
+											<td width="" align="center"><?php echo $this->Form->input('email', ['label' => false,'class' => 'form-control input-sm rightAligntextClass ','placeholder'=>'Email','required','value'=>$customer_address->email]); ?></td>
+											<td width="" align="center"><?php echo $this->Form->input('address', ['label' => false,'class' => 'form-control input-sm rightAligntextClass  address','placeholder'=>'Address','required','value'=>$customer_address->address]); ?></td>
+											<td>
+											<a class="btn btn-success add-tr btn-xs" href="#" role="button" style="margin-bottom: 5px;"><i class="fa fa-times"></i></a>
+											<a class="btn btn-danger delete-tr btn-xs" href="#" role="button" style="margin-bottom: 5px;"><i class="fa fa-times"></i></a>
+											
+											</td>
+										</tr>
+										<?php } ?>
+										
+										</tbody> 
+									</table>
+								</div>
+							</div>
 				</div>
 				<?= $this->Form->button(__('Submit'),['class'=>'btn btn-success submit']) ?>
 				<?= $this->Form->end() ?>
@@ -211,6 +246,22 @@ $this->set('title', 'Edit Customer');
 </div>
 
 
+<table id="sampleForAddress" style="display:none;" width="100%">
+	<tbody>
+			<tr class="main_tr">
+				<td width="7%" align="center"><?php echo @$i+1;?></td>
+				<td width="" align="center"><?php echo $this->Form->input('name', ['label' => false,'class' => 'form-control input-sm rightAligntextClass  quantity','placeholder'=>'Name','required']); ?></td>
+				<td width="" align="center"><?php echo $this->Form->input('mobile', ['label' => false,'class' => 'form-control input-sm rightAligntextClass  quantity','placeholder'=>'Mobile','required']); ?></td>
+				<td width="" align="center"><?php echo $this->Form->input('email', ['label' => false,'class' => 'form-control input-sm rightAligntextClass ','placeholder'=>'Email','required']); ?></td>
+				<td width="" align="center"><?php echo $this->Form->input('address', ['label' => false,'class' => 'form-control input-sm rightAligntextClass  address','placeholder'=>'Address','required']); ?></td>
+				<td>
+				<a class="btn btn-success add-tr btn-xs" href="#" role="button" style="margin-bottom: 5px;"><i class="fa fa-times"></i></a>
+				<a class="btn btn-danger delete-tr btn-xs" href="#" role="button" style="margin-bottom: 5px;"><i class="fa fa-times"></i></a>
+				
+				</td>
+			</tr>
+	</tbody>
+</table>
 
 <table id="sampleForRef" style="display:none;" width="100%">
 	<tbody>
@@ -417,6 +468,38 @@ $this->set('title', 'Edit Customer');
 			renameRefRows();
 			calculation();
 		}
+		
+		
+		$('.add-tr').die().live('click',function(){
+				Addaddress();
+			});
+			
+		renameRefRows1();
+		function Addaddress(){
+			
+			var refTr=$('#sampleForAddress tbody tr').clone();
+			$('#main_table #main_tbody').append(refTr);
+		    renameRefRows1();
+			//calculation();
+		}
+		
+		function renameRefRows1(){
+			
+			var i=1;
+			$('#main_table tbody#main_tbody tr.main_tr').each(function(){
+					$(this).find('td:nth-child(1)').html(i);
+					$(this).find('td:nth-child(2) input').attr({name:'customer_addresses['+i+'][name]',id:'customer_addresses-'+i+'-name'})
+					$(this).find('td:nth-child(3) input').attr({name:'customer_addresses['+i+'][mobile]',id:'customer_addresses-'+i+'-mobile'})
+					$(this).find('td:nth-child(4) input').attr({name:'customer_addresses['+i+'][email]',id:'customer_addresses-'+i+'-email'})
+					$(this).find('.address').attr({name:'customer_addresses['+i+'][address]',id:'customer_addresses-'+i+'-address'})
+					i++;
+				});
+			
+			
+			
+		}
+		
+		
 		
 		function renameRefRows(){
 			var i=0;

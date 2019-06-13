@@ -99,6 +99,7 @@ $this->set('title', 'Create Customer');
 								
 							</div>
 						</div>
+						<br>
 						
 						<div class="row">
 							<div class="window" style="margin:auto;display:none;">
@@ -108,6 +109,28 @@ $this->set('title', 'Create Customer');
 								<tr style="border-top:#a5a1a1"><td colspan="2"><a role="button" class="addRefRow">Add Row</a></td><td valign="top"><input type="text" name="total" class="form-control input-sm rightAligntextClass total calculation " id="total" readonly></td><td valign="top"><input type="text" id="total_type" name="total_type" class="form-control input-sm total_type calculation " readonly></td></tr></tfoot></table>
 								</div>
 						</div>
+						<br>
+						
+						<div class="row">
+							<div class="table-responsive">
+								<table id="main_table" class="table table-condensed table-bordered" style="margin-bottom: 4px;" width="100%">
+									<thead>
+										<tr align="center">
+											<td><label>Sr<label></td>
+											<td><label>Name<label></td>
+											<td><label>Mobile<label></td>
+											<td><label>Email<label></td>
+											<td><label>Address<label></td>
+											<td></td>
+										</tr>
+									</thead>
+									<tbody id='main_tbody' class="tab">
+									
+									</tbody> 
+								</table>
+							</div>
+						</div>
+						
 					</div>
 				</div>
 				<?= $this->Form->button(__('Submit'),['class'=>'btn btn-success submit']) ?>
@@ -150,6 +173,23 @@ $option_ref[]= ['value'=>'On Account','text'=>'On Account'];
 				<a class="delete-tr-ref calculation" href="#" role="button" style="margin-bottom: 5px;"><i class="fa fa-times"></i></a>
 			</td>
 		</tr>
+	</tbody>
+</table>
+
+<table id="sampleForAddress" style="display:none;" width="100%">
+	<tbody>
+			<tr class="main_tr">
+				<td width="7%" align="center"><?php echo @$i+1;?></td>
+				<td width="" align="center"><?php echo $this->Form->input('name', ['label' => false,'class' => 'form-control input-sm rightAligntextClass  quantity','placeholder'=>'Name','required']); ?></td>
+				<td width="" align="center"><?php echo $this->Form->input('mobile', ['label' => false,'class' => 'form-control input-sm rightAligntextClass  quantity','placeholder'=>'Mobile','required']); ?></td>
+				<td width="" align="center"><?php echo $this->Form->input('email', ['label' => false,'class' => 'form-control input-sm rightAligntextClass ','placeholder'=>'Email','required']); ?></td>
+				<td width="" align="center"><?php echo $this->Form->input('address', ['label' => false,'class' => 'form-control input-sm rightAligntextClass  quantity','placeholder'=>'Address','required']); ?></td>
+				<td>
+				<a class="btn btn-success add-tr btn-xs " href="#" role="button" style="margin-bottom: 5px;"><i class="fa fa-plus"></i></a>
+				<a class="btn btn-danger delete-tr btn-xs" href="#" role="button" style="margin-bottom: 5px;"><i class="fa fa-times"></i></a>
+				
+				</td>
+			</tr>
 	</tbody>
 </table>
 
@@ -296,6 +336,26 @@ $option_ref[]= ['value'=>'On Account','text'=>'On Account'];
 				AddRefRow();
 			});
 			
+			$('.delete-tr').die().live('click',function() 
+		{
+			if($('#main_table #main_tbody tr').length >1){
+			$(this).closest('tr').remove();
+			}
+		});
+		$('.add-tr').die().live('click',function(){
+				Addaddress();
+			});
+			
+		Addaddress();
+		function Addaddress(){
+			
+			var refTr=$('#sampleForAddress tbody tr').clone();
+			$('#main_table #main_tbody').append(refTr);
+		    renameRefRows1();
+			//calculation();
+		}
+		
+		
 		function AddRefRow(){
 			var refTr=$('#sampleForRef tbody tr').clone();
 			$('div.window table tbody').append(refTr);
@@ -303,6 +363,21 @@ $option_ref[]= ['value'=>'On Account','text'=>'On Account'];
 			calculation();
 		}
 		
+		function renameRefRows1(){
+			
+			var i=1;
+			$('#main_table tbody#main_tbody tr.main_tr').each(function(){
+					$(this).find('td:nth-child(1)').html(i);
+					$(this).find('td:nth-child(2) input').attr({name:'customer_addresses['+i+'][name]',id:'customer_addresses-'+i+'-name'}).rules('add', 'required');
+					$(this).find('td:nth-child(3) input').attr({name:'customer_addresses['+i+'][mobile]',id:'customer_addresses-'+i+'-mobile'}).rules('add', 'required');
+					$(this).find('td:nth-child(4) input').attr({name:'customer_addresses['+i+'][email]',id:'customer_addresses-'+i+'-email'}).rules('add', 'required');
+					$(this).find('td:nth-child(5) input').attr({name:'customer_addresses['+i+'][address]',id:'customer_addresses-'+i+'-address'}).rules('add', 'required');
+					i++;
+				});
+			
+			
+			
+		}
 		function renameRefRows(){
 			var i=0;
 			var bill_accounting=$('option:selected', this).val();
