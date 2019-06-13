@@ -57,6 +57,10 @@ class CustomersTable extends Table
 		$this->hasMany('ReferenceDetails', [
             'foreignKey' => 'customer_id'
         ]);
+		$this->hasMany('CustomerAddresses', [
+            'foreignKey' => 'customer_id',
+			'saveStrategy' =>'replace'
+        ]);
 		
     }
 

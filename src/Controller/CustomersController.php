@@ -76,6 +76,7 @@ class CustomersController extends AppController
 		$company_id=$this->Auth->User('session_company_id');
         $customer = $this->Customers->newEntity();
 		$this->request->data['company_id'] = $company_id;
+	
         if ($this->request->is('post')) {
 			
 			$customer = $this->Customers->patchEntity($customer, $this->request->data);
@@ -91,7 +92,6 @@ class CustomersController extends AppController
 						$reference_detail->opening_balance = 'yes';
 					}
 				}
-			
 			if ($this->Customers->save($customer)) {
 				
 				$query=$this->Customers->query();
@@ -211,9 +211,9 @@ class CustomersController extends AppController
     {
 		$this->viewBuilder()->layout('index_layout');
         $customer = $this->Customers->get($id, [
-            'contain' => ['Ledgers','ReferenceDetails']
+            'contain' => ['Ledgers','ReferenceDetails','CustomerAddresses']
         ]);
-		
+		//pr($customer->customer_addresses); exit;
 		$company_id=$this->Auth->User('session_company_id');
         if ($this->request->is(['patch', 'post', 'put'])) {
             $customer = $this->Customers->patchEntity($customer, $this->request->getData());
@@ -264,7 +264,9 @@ class CustomersController extends AppController
                 $this->Flash->success(__('The customer has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
-            }
+            }else{
+				//pr($customer); exit;
+			}
             $this->Flash->error(__('The customer could not be saved. Please, try again.'));
         }
 		
