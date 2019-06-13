@@ -15,7 +15,7 @@ $this->set('title', 'Create Sales Invoice');
 }
 </style>
 
-<form method="GET" id="barcodeFrom">
+<!--<form method="GET" id="barcodeFrom">
 	<div class="row">
 		<div class="col-md-3">
 			<?php echo $this->Form->input('itembarcode',['class'=>'form-control input-sm itembarcode','label'=>false, 'placeholder'=>'Item Code/Bar-Code','autofocus'=>'autofocus']);
@@ -25,7 +25,7 @@ $this->set('title', 'Create Sales Invoice');
 			<button type="submit" class="go btn blue-madison input-sm">Go</button>
 		</div> 
 	</div>
-</form>
+</form>-->
 <div class="row">
 	<div class="col-md-12">
 		<div class="portlet light ">
@@ -65,9 +65,12 @@ $this->set('title', 'Create Sales Invoice');
 								$acronym = "";
 								foreach ($words as $w) {
 								$acronym .= $w[0];
+								$acronym .= $w[1];
+								$acronym .= $w[2];
+								$acronym .= $w[3];
 								}
 								?>
-								<?= $acronym.'/'.$financialyear.'/'. h(str_pad($voucher_no, 3, '0', STR_PAD_LEFT))?>
+								<?= $acronym.'/'.$financialyear.'/'. h(str_pad($voucher_no, 5, '0', STR_PAD_LEFT))?>
 							</div>
 						</div>
 						<div class="col-md-3">
@@ -98,7 +101,7 @@ $this->set('title', 'Create Sales Invoice');
 						</div> 
 					</div>
 					<br>
-					<div class="row">
+					<!--<div class="row">
 						<div class="col-md-3">
 								<label>Customer Name</label>
 								<?php echo $this->Form->control('customer_name',['empty'=>'-Select Party-', 'class'=>'form-control input-sm customer_name ','label'=>false,'required'=>'required']);
@@ -108,6 +111,28 @@ $this->set('title', 'Create Sales Invoice');
 							<div class="form-group">
 								<label>Customer Mobile</label>
 								<?php echo $this->Form->control('customer_mobile',['empty'=>'-Select Party-', 'class'=>'form-control input-sm customer_mobile','label'=>false,'required'=>'required']);
+								?>
+							</div>
+						</div> 
+					</div>
+					<br>-->
+					<div class="row">
+						<div class="col-md-3">
+								<label>Reverse Charge</label>
+								<?php $option =[['value'=>'Yes','text'=>'Yes'],['value'=>'No','text'=>'No']];?>
+								<?php echo $this->Form->control('reverse_charge',['class'=>'form-control input-sm','label'=>false, 'options' => $option]); ?>
+						</div>
+						<div class="col-md-3">
+							<div class="form-group">
+								<label>Vehicle Number</label>
+								<?php echo $this->Form->control('vehicle_number',['class'=>'form-control input-sm ','label'=>false]);
+								?>
+							</div>
+						</div> 
+						<div class="col-md-3">
+							<div class="form-group">
+								<label>Transport Mode</label>
+								<?php echo $this->Form->control('transport_mode',['class'=>'form-control input-sm ','label'=>false]);
 								?>
 							</div>
 						</div> 
@@ -189,7 +214,7 @@ $this->set('title', 'Create Sales Invoice');
 											[
 												['value' => 'cash', 'text' => 'Cash','class' => ''],
 												['value' => 'credit', 'text' => 'Credit','class' => '']
-											],['value'=>'cash']
+											],['value'=>'credit']
 											); ?>
 										</div>
                                     </div>
