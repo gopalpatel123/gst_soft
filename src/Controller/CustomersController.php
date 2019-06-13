@@ -80,6 +80,7 @@ class CustomersController extends AppController
         if ($this->request->is('post')) {
 			
 			$customer = $this->Customers->patchEntity($customer, $this->request->data);
+			//	pr($customer); exit;
 			$bill_to_bill_accounting=$customer->bill_to_bill_accounting;
 			$default_credit_days=$customer->default_credit_days;
 			

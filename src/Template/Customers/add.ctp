@@ -121,6 +121,7 @@ $this->set('title', 'Create Customer');
 											<td><label>Mobile<label></td>
 											<td><label>Email<label></td>
 											<td><label>Address<label></td>
+											<td><label>Default Address<label></td>
 											<td></td>
 										</tr>
 									</thead>
@@ -184,6 +185,8 @@ $option_ref[]= ['value'=>'On Account','text'=>'On Account'];
 				<td width="" align="center"><?php echo $this->Form->input('mobile', ['label' => false,'class' => 'form-control input-sm rightAligntextClass  quantity','placeholder'=>'Mobile','required']); ?></td>
 				<td width="" align="center"><?php echo $this->Form->input('email', ['label' => false,'class' => 'form-control input-sm rightAligntextClass ','placeholder'=>'Email','required']); ?></td>
 				<td width="" align="center"><?php echo $this->Form->input('address', ['label' => false,'class' => 'form-control input-sm rightAligntextClass  quantity','placeholder'=>'Address','required']); ?></td>
+				
+				<td width="" align="center"><?php echo $this->Form->input('default_address', ['label' => false,'class' => 'form-control chkbox','type'=>'checkbox','value'=>'1']); ?></td>
 				<td>
 				<a class="btn btn-success add-tr btn-xs " href="#" role="button" style="margin-bottom: 5px;"><i class="fa fa-plus"></i></a>
 				<a class="btn btn-danger delete-tr btn-xs" href="#" role="button" style="margin-bottom: 5px;"><i class="fa fa-times"></i></a>
@@ -372,7 +375,10 @@ $option_ref[]= ['value'=>'On Account','text'=>'On Account'];
 					$(this).find('td:nth-child(3) input').attr({name:'customer_addresses['+i+'][mobile]',id:'customer_addresses-'+i+'-mobile'}).rules('add', 'required');
 					$(this).find('td:nth-child(4) input').attr({name:'customer_addresses['+i+'][email]',id:'customer_addresses-'+i+'-email'}).rules('add', 'required');
 					$(this).find('td:nth-child(5) input').attr({name:'customer_addresses['+i+'][address]',id:'customer_addresses-'+i+'-address'}).rules('add', 'required');
+					$(this).find('.chkbox').attr({name:'customer_addresses['+i+'][default_address]',id:'customer_addresses-'+i+'-default_address'}).uniform();
+					//var test = $('input[type=chechbox]:not(.toggle)');if(test){test.uniform();}
 					i++;
+					  //$('.chkbox').not(this).prop('checked', false);  
 				});
 			
 			

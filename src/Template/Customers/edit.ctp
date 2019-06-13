@@ -214,18 +214,22 @@ $this->set('title', 'Edit Customer');
 												<td><label>Mobile<label></td>
 												<td><label>Email<label></td>
 												<td><label>Address<label></td>
+												<td><label>Default Address<label></td>
 												<td></td>
 											</tr>
 										</thead>
 										<tbody id='main_tbody' class="tab">
 										<?php foreach($customer->customer_addresses as $customer_address){ ?>
+										
+										<?php if($customer_address->default_address==1){$customer_checked="checked";}else{$customer_checked="";}?>
 										<tr class="main_tr">
 											<td width="7%" align="center"><?php echo @$i+1;?></td>
 											<td width="" align="center"><?php echo $this->Form->input('name', ['label' => false,'class' => 'form-control input-sm rightAligntextClass  quantity','placeholder'=>'Name','required','value'=>$customer_address->name]); ?></td>
 											<td width="" align="center"><?php echo $this->Form->input('mobile', ['label' => false,'class' => 'form-control input-sm rightAligntextClass  quantity','placeholder'=>'Mobile','required','value'=>$customer_address->mobile]); ?></td>
 											<td width="" align="center"><?php echo $this->Form->input('email', ['label' => false,'class' => 'form-control input-sm rightAligntextClass ','placeholder'=>'Email','required','value'=>$customer_address->email]); ?></td>
 											<td width="" align="center"><?php echo $this->Form->input('address', ['label' => false,'class' => 'form-control input-sm rightAligntextClass  address','placeholder'=>'Address','required','value'=>$customer_address->address]); ?></td>
-											<td>
+											
+											<td width="" align="center"><?php echo $this->Form->input('default_address', ['label' => false,'class' => 'form-control chkbox','type'=>'checkbox','checked'=>$customer_checked]); ?></td><td>
 											<a class="btn btn-success add-tr btn-xs" href="#" role="button" style="margin-bottom: 5px;"><i class="fa fa-times"></i></a>
 											<a class="btn btn-danger delete-tr btn-xs" href="#" role="button" style="margin-bottom: 5px;"><i class="fa fa-times"></i></a>
 											
@@ -254,7 +258,9 @@ $this->set('title', 'Edit Customer');
 				<td width="" align="center"><?php echo $this->Form->input('mobile', ['label' => false,'class' => 'form-control input-sm rightAligntextClass  quantity','placeholder'=>'Mobile','required']); ?></td>
 				<td width="" align="center"><?php echo $this->Form->input('email', ['label' => false,'class' => 'form-control input-sm rightAligntextClass ','placeholder'=>'Email','required']); ?></td>
 				<td width="" align="center"><?php echo $this->Form->input('address', ['label' => false,'class' => 'form-control input-sm rightAligntextClass  address','placeholder'=>'Address','required']); ?></td>
+				<td width="" align="center"><?php echo $this->Form->input('default_address', ['label' => false,'class' => 'form-control chkbox','type'=>'checkbox','value'=>'1']); ?></td>
 				<td>
+				
 				<a class="btn btn-success add-tr btn-xs" href="#" role="button" style="margin-bottom: 5px;"><i class="fa fa-times"></i></a>
 				<a class="btn btn-danger delete-tr btn-xs" href="#" role="button" style="margin-bottom: 5px;"><i class="fa fa-times"></i></a>
 				
@@ -482,7 +488,13 @@ $this->set('title', 'Edit Customer');
 		    renameRefRows1();
 			//calculation();
 		}
-		
+		$('.delete-tr').die().live('click',function() 
+		{
+			if($('#main_table #main_tbody tr').length >1){
+			$(this).closest('tr').remove();
+			  renameRefRows1();
+			}
+		});
 		function renameRefRows1(){
 			
 			var i=1;
@@ -492,6 +504,7 @@ $this->set('title', 'Edit Customer');
 					$(this).find('td:nth-child(3) input').attr({name:'customer_addresses['+i+'][mobile]',id:'customer_addresses-'+i+'-mobile'})
 					$(this).find('td:nth-child(4) input').attr({name:'customer_addresses['+i+'][email]',id:'customer_addresses-'+i+'-email'})
 					$(this).find('.address').attr({name:'customer_addresses['+i+'][address]',id:'customer_addresses-'+i+'-address'})
+					$(this).find('.chkbox').attr({name:'customer_addresses['+i+'][default_address]',id:'customer_addresses-'+i+'-default_address'}).uniform();
 					i++;
 				});
 			
