@@ -89,8 +89,9 @@ $this->set('title', 'Create Sales Invoice');
 						<input type="hidden" name="voucher_no" id="" value="<?= h($voucher_no, 4, '0') ?>">
 						<div class="col-md-3">
 								<label>Party</label>
-								<?php echo $this->Form->control('party_ledger_id',['empty'=>'-Select Party-', 'class'=>'form-control input-sm party_ledger_id select2me','label'=>false,'options' => $partyOptions,'required'=>'required','value'=>$CashPartyLedgers->id]);
+								<?php echo $this->Form->control('party_ledger_id',['empty'=>'-Select Party-', 'class'=>'form-control input-sm party_ledger_id select2me','label'=>false,'options' => $partyOptions,'required'=>'required','value'=>$CashPartyLedgers->id,'onChange'=>'changethevalue(this.customer_id)']);
 								?>
+								
 						</div>
 						<div class="col-md-3">
 							<div class="form-group">
@@ -133,6 +134,14 @@ $this->set('title', 'Create Sales Invoice');
 							<div class="form-group">
 								<label>Transport Mode</label>
 								<?php echo $this->Form->control('transport_mode',['class'=>'form-control input-sm ','label'=>false]);
+								?>
+							</div>
+						</div> 
+						
+						<div class="col-md-3">
+							<div class="form-group">
+								<label>Default Address</label>
+								<?php echo $this->Form->textarea('default_address',['class'=>'form-control input-sm ','label'=>false]);
 								?>
 							</div>
 						</div> 
@@ -519,6 +528,11 @@ $this->set('title', 'Create Sales Invoice');
 		ComponentsPickers.init();
 		
 	});
+	
+	function changethevalue(id)
+	{
+		alert(id);
+	}
 	
 	$('.add_row').click(function(){
 		add_row();
