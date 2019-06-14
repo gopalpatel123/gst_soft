@@ -1,140 +1,85 @@
-<?php 
-require_once(ROOT . DS  .'vendor' . DS  . 'dompdf' . DS . 'autoload.inc.php');
-use Dompdf\Dompdf;
-use Dompdf\Options;
-
-$options = new Options();
-$options->set('defaultFont', 'Lato-Hairline');
-$dompdf = new Dompdf($options);
-
-$dompdf = new Dompdf();
-
-
-//$description =  wordwrap($invoice->delivery_description,25,'<br/>');
-//pr($description);exit;
-$html = '
-<html>
+<!DOCTYPE html>
+<html data-wf-page="5beb6c18a46e3311cd624f69" >
 <head>
-  <style>
-  @page { margin: 160px 15px 10px 30px; }
-
-  body{
-    line-height: 20px;
-	}
-	
-    #header { position:fixed; left: 0px; top: -160px; right: 0px; height: 160px;}
-    
-	#content{
-    position: relative; 
-	}
-	
-	@font-face {
-		font-family: Lato;
-		src: url("https://fonts.googleapis.com/css?family=Lato");
-	}
-	p.test {
-		width: 11px; 
-    word-wrap: break-word;
+  <title>INVOICE</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css" />
+ 
+</head>
+<style>
+.main1 p{
+    font-weight: 600;
 }
-	p{
-		margin:0;font-family: Lato;font-weight: 100;line-height: 12px !important;margin-top:-9px;
-	}
-	.odd td p{
-		margin:0;font-family: Lato;font-weight: 100;line-height: 17px !important;margin-bottom: -1px;
-	}
-	.show td p{
-			margin:0;font-family: Lato;font-weight: 100;line-height: 17px !important;
-	}
-	.topdata p{
-		margin:0;font-family: Lato;font-weight: 100;line-height: 17px !important;margin-bottom: 1px;
-	}
-	.des p{
-		margin:0;font-family: Lato;font-weight: 100;line-height: 17px !important;margin-bottom: 1px;width:291px;
-	}
-	table td{
-		margin:0;font-family: Lato;font-weight: 100;padding:0;line-height: 1;
-	}
-	table.table_rows tr.odd{
-		page-break-inside: avoid;
-	}
-	.table_rows, .table_rows th, .table_rows td {
-	    border: 1px solid  #000; 
-		border-collapse: collapse;
-		padding:2px; 
-	}
-	.itemrow tbody td{
-		border-bottom: none;border-top: none;
-	}
-	
-	.table2 td{
-		border: 0px solid  #000;font-size: 14px;padding:0px; 
-	}
-	.table_top td{
-		font-size: 12px !important; 
-	}
-	.table-amnt td{
-		border: 0px solid  #000;padding:0px; 
-	}
-	.table_rows th{
-		border: 1px solid  #000;
-		font-size:16px !important;
-	}
-	.table_rows td{
-		border: 1px solid  #000;
-		font-size:16px !important;
-	}
-	.avoid_break{
-		page-break-inside: avoid;
-	}
-	.table-bordered{
-		border: hidden;
-	}
-	table.table-bordered td {
-		border: hidden;
-	}
-	
-	</style>
 
-<body>
-  <div id="header" ><br/>	
-		<table width="100%">
-			<tr >
-				<td style="text-align:center" colspan="16">
-					<address>
-							KT & Co.<br/>
-							INDUSTRIAL AREA,PHASE <br/>
-							sojat city, India, Pin - 306104.<br/>
-							GSTIN: 08XXXXXXXXX
-					</address>
-				</td>
-			</tr>
-			<tr>
-				<td width="30%" valign="top"> 
-				<div align="right" style="font-size: 28px;font-weight: bold;color: #0685a8;">INVOICE</div>
-				</td>
-				<td align="right" width="35%" style="font-size: 12px; ">
-				
-				</td>
-			</tr>
-			
-		</table>
-  </div>
- 
+body{
+    margin: 0px;
+    padding: 0px;
+}
 
-  
-  <div id="content"> ';
-  
-  $html.='
-  
-<style>	
- 
+
 
 </style>
+<body>
+<div  class="container ">
+	<div  class="row">
 
-<table width="100%" class="table_rows itemrow" style="margin-top: -22px;">
-	<thead>
-		<table border="2" width="100%" class="table" style="margin-top:-22px;">
-					<tbody>
+	<div   class="col-sm-12 main1">
+			<table border="2" width="100%" class="table">
+				<thead>
+					<tr >
+						<th style="text-align:center" colspan="16">
+							<address>
+									KT & Co.<br/>
+									INDUSTRIAL AREA,PHASE <br/>
+									sojat city, India, Pin - 306104.<br/>
+									GSTIN: 08XXXXXXXXX
+							</address>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td rowspan="3" colspan="8" style="text-align: center;font-weight: 600;" width="75%">
+							INVOICE
+						</td>
+						<td  width="5%">
+							
+						</td>
+						
+						<td colspan="7">
+							Original for Receipient
+
+						</td>
+						<tr>
+						
+						<td  width="5%">
+							
+						</td>
+						
+						<td colspan="7">
+							Original for Receipient
+
+						</td>
+						
+					</tr>
+					<tr>
+						
+						<td  width="5%">
+							
+						</td>
+						
+						<td colspan="7">
+							Original for Receipient
+
+						</td>
+						
+					</tr>
+					</tr>
+					
+				</tbody>
+				
+				
 					<tr>
 						<td colspan="8">
 							
@@ -152,300 +97,361 @@ $html = '
 						
 						
 					</tr>
-	</thead>
-</table>'; 
-$html.='
-<table width="100%" class="table_rows">
-		<thead>
-			<tr>
-				<th rowspan="2" style="text-align: bottom;">Sr.No. </th>
-				<th style="text-align: center;" rowspan="2" width="100%">Items</th>
-				<th style="text-align: center;" rowspan="2"  >Quantity</th>
-				<th style="text-align: center;" rowspan="2" >Rate</th>
-				<th style="text-align: center;" rowspan="2" > Amount</th>
-				<th style="text-align: center;" colspan="2" >Discount</th>
-				<th style="text-align: center;" colspan="2" >P&F </th>
-				<th style=" text-align: center;" rowspan="2" >Taxable Value</th>
-				<th style="text-align: center;" colspan="2">CGST</th>
-				<th style="text-align: center;" colspan="2" >SGST</th>
-				<th style="text-align: center;" colspan="2" >IGST</th>
-				<th style="text-align: center;" rowspan="2" >Total</th>
-			</tr>
-			<tr> <th style="text-align: center;" > %</th>
-				<th style="text-align: center;">Amt</th>
-				<th style="text-align: center;" > %</th>
-				<th style="text-align: center;" >Amt</th>
-				<th style="text-align: center;" > %</th>
-				<th style="text-align: center;" >Amt</th>
-				<th style="text-align: center;" > %</th>
-				<th style="text-align: center;" >Amt</th>
-				<th style="text-align: center;" > %</th>
-				<th style="text-align: center;" >Amt</th>
-				
-			</tr>
-		</thead>
-		<tbody>
-';
-pr($invoiceBills); exit;
-$sr=0; $h="-"; $total_taxable_value=0; foreach ($invoiceBills->sales_invoice_rows as  $invoiceRows): $sr++;
-// pr($invoiceRows);
-$html.='
-	<tr class="odd">
-		<td style="padding-top:8px;padding-bottom:5px;" valign="top" align="center" >'. h($sr) .'</td>
-		<td style="padding-top:8px;padding-bottom:5px;line-height:20px " valign="top">
-		<span> HSN Code : '.$invoiceRows->item->hsn_code;
-		if($invoiceRows->customer_item_code){
-			$html.=' <b><br/></b> Your  Item Code : '.$invoiceRows->customer_item_code; 
-		}
-		$html.='		
-		<div style="height:'.$invoiceRows->height.'"></div></span>
-		<span>'.$invoiceRows->description .'<div style="height:'.$invoiceRows->height.'"></div></span></td>
-		<td style="padding-top:8px;padding-bottom:5px;" valign="top" align="center">'. h($invoiceRows->quantity) .'</td>
-		<td style="padding-top:8px;padding-bottom:5px;" align="right" valign="top">'. $this->Money->indianNumberFormat($invoiceRows->rate) .'</td>
-		<td style="padding-top:8px;padding-bottom:5px;" align="right" valign="top">'. $this->Money->indianNumberFormat($invoiceRows->amount) .'</td>';
-		
-		if($invoiceRows->discount_amount==0){ 
-		$html.='
-			<td style="padding-top:8px;padding-bottom:5px;" align="center" valign="top">'. h($h) .'</td>
-			<td style="padding-top:8px;padding-bottom:5px;" align="center" valign="top">'. h($h) .'</td>';
-		}else{
-		$html.='
-			<td style="padding-top:8px;padding-bottom:5px;" align="right" valign="top">'. $this->Number->format($invoiceRows->discount_percentage) .'%</td>
-			<td style="padding-top:8px;padding-bottom:5px;" align="right" valign="top">'. $this->Money->indianNumberFormat($invoiceRows->discount_amount) .'</td>';	
-		}
-		
-		if($invoiceRows->pnf_amount==0){ 
-		$html.='
-			<td style="padding-top:8px;padding-bottom:5px;" align="center" valign="top">'. h($h) .'</td>
-			<td style="padding-top:8px;padding-bottom:5px;" align="center" valign="top">'. h($h) .'</td>';
-		}else{
-		$html.='
-			<td style="padding-top:8px;padding-bottom:5px;" align="right" valign="top">'. $this->Number->format($invoiceRows->pnf_percentage) .'%</td>
-			<td style="padding-top:8px;padding-bottom:5px;" align="right" valign="top">'. $this->Money->indianNumberFormat($invoiceRows->pnf_amount) .'</td>';	
-		
-		}
-		
-		$html.='
-		<td style="padding-top:8px;padding-bottom:5px;" align="right" valign="top">'. $this->Money->indianNumberFormat($invoiceRows->taxable_value) .'</td>';
-		if($invoiceRows->cgst_amount==0){ 
-		$html.='
-			<td style="'.$gst_hide.'"';$html.='padding-top:8px;padding-bottom:5px;" align="center" valign="top">'. h($h) .'</td>
-			<td style="'.$gst_hide.'"';$html.='padding-top:8px;padding-bottom:5px;" align="center" valign="top">'. h($h) .'</td>';
-		}else{
-		$html.='
-			<td style="'.$gst_hide.'"';$html.='padding-top:8px;padding-bottom:5px;" align="right" valign="top">'. $this->Number->format(@$cgst_per[$invoiceRows->id]['tax_figure']) .'%</td>
-			<td style="'.$gst_hide.'"';$html.='padding-top:8px;padding-bottom:5px;" align="right" valign="top">'. $this->Money->indianNumberFormat($invoiceRows->cgst_amount) .'</td>';
-		}
-		if($invoiceRows->sgst_amount==0){ 
-		$html.='
-			<td style="'.$gst_hide.'"';$html.='padding-top:8px;padding-bottom:5px;" align="center" valign="top">'. h($h) .'</td>
-			<td style="'.$gst_hide.'"';$html.='padding-top:8px;padding-bottom:5px;" align="center" valign="top">'. h($h) .'</td>';
-		}else{
-		$html.='
-			<td style="'.$gst_hide.'"';$html.='padding-top:8px;padding-bottom:5px;" align="right" valign="top">'. $this->Number->format(@$sgst_per[$invoiceRows->id]['tax_figure']) .'%</td>
-			<td style="'.$gst_hide.'"';$html.='padding-top:8px;padding-bottom:5px;" align="right" valign="top">'. $this->Money->indianNumberFormat($invoiceRows->sgst_amount) .'</td>';
-		}
-		if($invoiceRows->igst_amount==0){ 
-		$html.='
-			<td style="'.$igst_hide.'"';$html.='padding-top:8px;padding-bottom:5px;" align="center" valign="top">'. h($h) .'</td>
-			<td style="'.$igst_hide.'"';$html.='padding-top:8px;padding-bottom:5px;" align="center" valign="top">'. h($h) .'</td>';
-		}else{
-		$html.='
-			<td style="'.$igst_hide.'"';$html.='padding-top:8px;padding-bottom:5px;" align="right" valign="top">'. $this->Number->format(@$igst_per[$invoiceRows->id]['tax_figure']) .'%</td>
-			<td style="'.$igst_hide.'"';$html.='padding-top:8px;padding-bottom:5px;" align="right" valign="top">'. $this->Money->indianNumberFormat($invoiceRows->igst_amount) .'</td>';
-		}
-		$html.='
-
-		<td style="padding-top:8px;padding-bottom:5px;" align="right" valign="top">'. $this->Money->indianNumberFormat($invoiceRows->row_total) .'</td>
-	</tr>';
-	$total_taxable_value+=$invoiceRows->taxable_value;
-endforeach; 
-$fright_total=$invoice->fright_amount+$invoice->fright_cgst_amount+$invoice->fright_sgst_amount+$invoice->fright_igst_amount;
-if($invoice->fright_amount != 0){ 
-$html.='<tr>
-			<td style="padding-top:8px;padding-bottom:5px;" valign="top" align="right" colspan="9" >Freight  Amount</td>
-			<td style="padding-top:8px;padding-bottom:5px;" valign="top" align="right"  >'. $this->Money->indianNumberFormat($invoice->fright_amount,2) .'</td>';
-		
-		if($invoice->fright_cgst_amount==0){ 
-		$html.='
-			<td style="'.$gst_hide.'"';$html.='padding-top:8px;padding-bottom:5px;" align="center" valign="top">'. h($h) .'</td>
-			<td style="'.$gst_hide.'"';$html.='padding-top:8px;padding-bottom:5px;" align="center" valign="top">'. h($h) .'</td>';
-		}else{
-		$html.='
-			<td style="'.$gst_hide.'"';$html.='padding-top:8px;padding-bottom:5px;" align="right" valign="top">'. $this->Number->format(@$fright_ledger_cgst->tax_figure) .'%</td>
-			<td style="'.$gst_hide.'"';$html.='padding-top:8px;padding-bottom:5px;" valign="top" align="right"  >'. $this->Number->format($invoice->fright_cgst_amount,[ 'places' => 2]) .'</td>';
-		}
-		
-		if($invoice->fright_sgst_amount==0){ 
-		$html.='
-			<td style="'.$gst_hide.'"';$html.='padding-top:8px;padding-bottom:5px;" align="center" valign="top">'. h($h) .'</td>
-			<td style="'.$gst_hide.'"';$html.='padding-top:8px;padding-bottom:5px;" align="center" valign="top">'. h($h) .'</td>';
-		}else{
-		$html.='
-			<td style="'.$gst_hide.'"';$html.='padding-top:8px;padding-bottom:5px;" align="right" valign="top">'. $this->Number->format(@$fright_ledger_sgst->tax_figure) .'%</td>
-			<td style="'.$gst_hide.'"';$html.='padding-top:8px;padding-bottom:5px;" valign="top" align="right"  >'. $this->Number->format($invoice->fright_sgst_amount,[ 'places' => 2]) .'</td>';
-		}
-		
-		if($invoice->fright_igst_amount==0){ 
-		$html.='
-			<td style="'.$igst_hide.'"';$html.='padding-top:8px;padding-bottom:5px;" align="center" valign="top">'. h($h) .'</td>
-			<td style="'.$igst_hide.'"';$html.='padding-top:8px;padding-bottom:5px;" align="center" valign="top">'. h($h) .'</td>';
-		}else{
-		$html.='
-			<td style="'.$igst_hide.'"';$html.='padding-top:8px;padding-bottom:5px;" align="right" valign="top">'. $this->Number->format(@$fright_ledger_igst->tax_figure) .'%</td>
-			<td style="'.$igst_hide.'"';$html.='padding-top:8px;padding-bottom:5px;" valign="top" align="right"  >'. $this->Money->indianNumberFormat($invoice->fright_igst_amount) .'</td>';
-		}
-		$html.='	
-			
-			<td style="padding-top:8px;padding-bottom:5px;" valign="top" align="right"  >'. $this->Money->indianNumberFormat($fright_total) .'</td>
-		</tr>';
-}
-	$html.='</tbody>';
-$html.='</table>';
-	
-$grand_total=explode('.',$invoice->grand_total);
-$rupees=$grand_total[0];
-$paisa_text='';
-if(sizeof($grand_total)==2)
-{
-	$grand_total[1]=str_pad($grand_total[1], 2, '0', STR_PAD_RIGHT);
-	$paisa=(int)$grand_total[1];
-	$paisa_text= 'And'.' '.h(ucwords($this->NumberWords->convert_number_to_words($paisa))) .' Paisa';
-}else{ $paisa_text=""; }
-
-$basic_value=$invoice->fright_amount+$total_taxable_value;
-
-$html.='
-<table width="100%" class="table_rows" >
-	<tbody>
-			<tr>
-				<td  width="75%">
-					<b style="font-size:13px;"><u>Our Bank Details</u></b>
-					<table width="100%" class="table2">
-						<tr>
-							<td width="" style="white-space: nowrap;">Bank Name</td>
-							<td  style="white-space: nowrap;">: '.h($invoice->company->company_banks[0]->bank_name).'</td>
-							<td  >Branch</td>
-							<td style="white-space: nowrap;">: '.h($invoice->company->company_banks[0]->branch).'</td>
-						</tr>
-						
-						<tr>
-							<td  style="white-space: nowrap;">Account No</td>
-							<td style="white-space: nowrap;">: '.h($invoice->company->company_banks[0]->account_no).'</td>
-							<td >IFSC Code</td>
-							<td  style="white-space: nowrap;">: '.h($invoice->company->company_banks[0]->ifsc_code).'</td>
-						</tr>
-						
-					</table>
-				</td>
-				
-				<td  width="25%">
-					<table width="100%" class="table2">
 					<tr>
-							<td >Total</td>
-							<td>:</td>
-							<td style="text-align:right;" valign="">'. $this->Number->format($basic_value,[ 'places' => 2]) .'</td>
-						</tr>';
-					if($invoice->total_igst_amount == 0){
-					$html.='
-							<tr>
-								<td  >Total CGST</td>
-								<td>:</td>
-								<td style="text-align:right;" valign="">'. $this->Money->indianNumberFormat($invoice->total_cgst_amount) .'</td>
-								
-							</tr>
-							<tr>
-								<td  >Total SGST</td>
-								<td>:</td>
-								<td style="text-align:right;" valign="">'. $this->Money->indianNumberFormat($invoice->total_sgst_amount) .'</td>
-							</tr>';
-					}else{
-						$html.='
-							<tr>
-								<td  >Total IGST</td>
-								<td>:</td>
-								<td style="text-align:right;" valign="">'. $this->Money->indianNumberFormat($invoice->total_igst_amount) .'</td>
-							</tr>';
-						}
-						$html.='
+				
+				<td colspan="16" style="height: 25px;">   </td>
+				
+				</tr>
+					<tr>
+						<td colspan="8" style="text-align: center;">
+							
+						<p>Details of Receiver |Billed to:</p>
+						 
+						</td>
+						<td  colspan="8" style="text-align: center;">
+						<p>Details of Consignee | Shipped to:</p>
+						</td>
+						
+						
+					</tr>
+					<tr>
+						<td colspan="8">
+							
+						<p>Name : ABCD Enterprises Private Limited</p>
+						<p>	Address : Address of the Customer</p>
+						<p>	GSTIN:  24ABCCA1234Z1ZX</p>
+						<p>State:   SOJAT CITY       <span style="    margin-left: 40%; border: 1px solid; padding: 11px;    border-bottom: none;">State Code :  2 4</span></p>   
+						</td>
+						<td  colspan="8">
+						<p>Name : PQRS</p>
+						<p>	Address : RAIKA CHATRAWAS  </p>
+						<p>	GSTIN: 24AAAPP0000Z1ZX </p>
+						<p>State:   SOJAT  <span style="    margin-left: 40%; border: 1px solid; padding: 11px;    border-bottom: none;">State Code :  2 4</span></p>
+						</td>
 						<tr>
-							<td >Grand Total</td>
-							<td>:</td>
-							<td style="text-align:right;" valign="">'. $this->Money->indianNumberFormat($invoice->grand_total) .'</td>
-						</tr>
-						</table>
-				</td>
-			</tr>
-		</tbody>
-	</table>
-	<table width="100%" class="table_rows ">
-		<tr>
-			<td valign="top" width="18%">Amount in words</td>
-			<td  valign="top"> '. h(ucwords($this->NumberWords->convert_number_to_words($rupees))) .'  Rupees ' .h($paisa_text).'</td>
-		</tr>
-		<tr>
-			<td valign="top" width="18%">Additional Note</td>
-			<td  valign="top" class="topdata">'. $this->Text->autoParagraph($invoice->additional_note).'</td>
-
-		</tr>
-		
-		<tr>
-				<td colspan="2" >
-					<table width="100%" class="table2" >
-						<tr>
-							<td  >
-								<table>
-									<tr>
-										<td style="line-height:20px" >Interest @15% per annum shall be charged if not paid  with in agreed terms. <br/> Invoice is Subject to Udaipur jurisdiction</td>
-									</tr>
-								</table>
-								<table>
-									<tr>
-										<td >GST</td>
-										<td >: '. h($invoice->company->gst_no) .'</td>
-									</tr>
-									<tr width="30">
-										<td >PAN</td>
-										<td >: '. h($invoice->company->pan_no) .'</td>
-									</tr>
-									<tr>
-										<td >CIN</td>
-										<td >: '. h($invoice->company->cin_no) .'</td>
-									</tr>
-								</table>
-							</td>
-							<td align="right" >
-								<div align="center">
-									<span>For <b>'. h($invoice->company->name) .'</b></span><br/>
-									<img src='.ROOT . DS  . 'webroot' . DS  .'signatures/'.$invoice->creator->signature.' height="50px" style="height:50px;"/>
-									<br/>
-									<span><b>Authorised Signatory</b></span><br/>
-									<span>'. h($invoice->creator->name) .'</span><br/>
-									
-								</div>
-							</td>
-						</tr>
+						<td style="height: 25px;" colspan="16">
+					
+						</td>
+							
+					</tr>
+						
+					</tr>
+					
+					
+					<tr>
+					<th>Sr.No.</th>
+					<th>Name of Product /Service</th>
+					<th>HSN ACS</th>
+					<th>UOM</th>
+					<th>Qty</th>
+					<th>Rate</th>
+					<th>Amount</th>
+					<th>Less Discount</th>
+					<th>Taxable Value</th>
+					 
+					 <th><p>CGST </p>  Rate</th><th> <p>CGST </p>  Amount</th>
+					 
+					<th><p>SGST </p> Rate</th><th> <p>SGST </p> Amount</th>
+					
+					 <th><p>IGST</p>Rate</th><th><p>IGST</p> Amount</th>
+					<th>Total</th>
+					</tr>
+					
+					<tbody>
+					<tr>
+					<td>1</td>
+					<td>Consultancy </td>
+					<td>111111 </td>
+					<td> </td>
+					<td>1 </td>
+					<td>1,50,000 </td>
+					<td>1,50,000</td>
+					<td>-</td>
+					<td>1,50,000</td>
+					<td>9.00%</td>
+					<td>13,500</td>
+					<td>9.00%</td>
+					<td>13,500</td>
+					<td>0.0%</td>
+					<td>-</td>
+					<td>1,50,000</td>
+					
+					</tr>
+					
+					<tr>
+					<td>2</td>
+					<td>  </td>
+					<td>  </td>
+					<td> </td>
+					<td>  </td>
+					<td>  </td>
+					<td> </td>
+					<td>   </td>
+					<td> </td>
+					<td> </td>
+					<td> </td>
+					<td> </td>
+					<td> </td>
+					<td> </td>
+					<td>  </td>
+					<td> </td>
+					
+					</tr>
+					
+					<tr>
+					<td>3</td>
+					<td>  </td>
+					<td>  </td>
+					<td> </td>
+					<td>  </td>
+					<td>  </td>
+					<td> </td>
+					<td>   </td>
+					<td> </td>
+					<td> </td>
+					<td> </td>
+					<td> </td>
+					<td> </td>
+					<td> </td>
+					<td>  </td>
+					<td> </td>
+					
+					</tr>
+					<tr>
+					<td>4</td>
+					<td>  </td>
+					<td>  </td>
+					<td> </td>
+					<td>  </td>
+					<td>  </td>
+					<td> </td>
+					<td>   </td>
+					<td> </td>
+					<td> </td>
+					<td> </td>
+					<td> </td>
+					<td> </td>
+					<td> </td>
+					<td>  </td>
+					<td> </td>
+					
+					</tr><tr>
+					<td>5</td>
+					<td>  </td>
+					<td>  </td>
+					<td> </td>
+					<td>  </td>
+					<td>  </td>
+					<td> </td>
+					<td>   </td>
+					<td> </td>
+					<td> </td>
+					<td> </td>
+					<td> </td>
+					<td> </td>
+					<td> </td>
+					<td>  </td>
+					<td> </td>
+					
+					</tr><tr>
+					<td>6</td>
+					<td>  </td>
+					<td>  </td>
+					<td> </td>
+					<td>  </td>
+					<td>  </td>
+					<td> </td>
+					<td>   </td>
+					<td> </td>
+					<td> </td>
+					<td> </td>
+					<td> </td>
+					<td> </td>
+					<td> </td>
+					<td>  </td>
+					<td> </td>
+					
+					</tr><tr>
+					<td>7</td>
+					<td>  </td>
+					<td>  </td>
+					<td> </td>
+					<td>  </td>
+					<td>  </td>
+					<td> </td>
+					<td>   </td>
+					<td> </td>
+					<td> </td>
+					<td> </td>
+					<td> </td>
+					<td> </td>
+					<td> </td>
+					<td>  </td>
+					<td> </td>
+					
+					</tr><tr>
+					<td>8</td>
+					<td>  </td>
+					<td>  </td>
+					<td> </td>
+					<td>  </td>
+					<td>  </td>
+					<td> </td>
+					<td>   </td>
+					<td> </td>
+					<td> </td>
+					<td> </td>
+					<td> </td>
+					<td> </td>
+					<td> </td>
+					<td>  </td>
+					<td> </td>
+					
+					</tr><tr>
+					<td>9</td>
+					<td>  </td>
+					<td>  </td>
+					<td> </td>
+					<td>  </td>
+					<td>  </td>
+					<td> </td>
+					<td>   </td>
+					<td> </td>
+					<td> </td>
+					<td> </td>
+					<td> </td>
+					<td> </td>
+					<td> </td>
+					<td>  </td>
+					<td> </td>
+					
+					</tr>
+					
+					</tr>
+					
+					<tr>
+					<td>10</td>
+					<td>  </td>
+					<td>  </td>
+					<td> </td>
+					<td>  </td>
+					<td>  </td>
+					<td> </td>
+					<td>   </td>
+					<td> </td>
+					<td> </td>
+					<td> </td>
+					<td> </td>
+					<td> </td>
+					<td> </td>
+					<td>  </td>
+					<td> </td>
+					
+					</tr>
+					
+					<tr>
+					<td colspan="4" style="text-align:right;">Totle:</td>
+					<td> 1 </td>
+					<td>  </td>
+					<td>1,50,000  </td>
+					<td> - </td>
+					<td> 1,50,000  </td>
+					<td colspan="2">13,500 </td>
+					<td colspan="2"> 13,500  </td>
+					<td colspan="2"> - </td>
+					<td> 1,50,000  </td>
+					
+					
+					</tr>
+					<tr >
+					<td colspan="16" style="height: 25px;"></td>
+					</tr>
+					
+					<tr >
+					<td colspan="9" rowspan="6" ><p style="text-align:center;">Total Invoice Amount in Words: <p><p style="text-align:center;">Rupees One lakh Seventy Seven Thousand Only <p></td>
+					
+					</tr>
+					
+					<tr >
+					
+					<td colspan="4"><p>Total Amount Before Tax :</p></td>
+					<td colspan="3" style="text-align:right;">-</td>
+					</tr>
+					
+					<tr >
+					
+					<td colspan="4">Add : CGST :</td>
+					<td colspan="3" style="text-align:right;">-</td>
+					</tr>
+					
+					<tr >
+					
+					<td colspan="4">Add : SGST :</td>
+					<td colspan="3" style="text-align:right;">-</td>
+					</tr>
+					<tr >
+					
+					<td colspan="4">Add : IGST :</td>
+					<td colspan="3" style="text-align:right;">-</td>
+					</tr>
+					
+					<tr >
+					
+					<td colspan="4">Tax Amount : GST</td>
+					<td colspan="3" style="text-align:right;">-</td>
+					</tr>
+					<tr >
+					<td colspan="6" rowspan="3" ><p style="text-align:center;">: Bank Details :</p> 
+                    <p> Bank Account Number :  [[[Account Number]]]  </p>
+                    <p> Bank Branch IFSC    :  [[[IFSCCODE]]] </p>
+					</td>
+					<td colspan="3"  rowspan="4" ></td>
+					<td colspan="4">Total Amount After Tax</td>
+					<td colspan="3" style="text-align:right;">-</td>
+					</tr>
+					<tr >
+					
+					
+					<td colspan="7" style="height: 25px;"> </td>
+					
+					</tr>
+					
+					<tr >
+					
+					
+					<td colspan="4">GST Payable on Reverse Charge :</td>
+					<td colspan="3">N.A</td>
+					</tr>
+					
+					<tr >
+					<td colspan="6"  ><p style="text-align:center;margin-bottom: 160px;"> Terms and Conditions </p> 
+                    
+					</td>
+					
+					<td colspan="7"  >Certified that the particulars given above are true and correct. <p style="text-align:center;">For,KT & Co.</p>
+					<p style="text-align:center;margin-top: 100px;">Authorised Signatory  </p>
+					
+					</td>
+					
+					</tr>
+					
+					</tbody>
+			
+			
+			
 					</table>
-				</td>
-			</tr>
-	</table>
+			
+			
+			
+			
+	</div>
+
+
+	</div>
+</div>
 	
-			';
-
- $html .= '
 </body>
-</html>';
+</html>
 
-	//echo $html; exit; 
+<!--new scroll script-->
 
-$name='Invoice-'.h(($invoice->in1.'_IN'.str_pad($invoice->in2, 3, '0', STR_PAD_LEFT).'_'.$invoice->in3.'_'.$invoice->in4));
-
-$dompdf->loadHtml($html);
-$dompdf->set_paper('letter', 'landscape');
-//$dompdf->setPaper('A4', 'portrait');
-$dompdf->render();
-$output = $dompdf->output(); //echo $name; exit;
-file_put_contents('Invoice_email/'.$name.'.pdf', $output);
-$dompdf->stream($name,array('Attachment'=>0));
-exit(0);
-?>
