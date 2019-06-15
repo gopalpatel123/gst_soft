@@ -89,7 +89,7 @@ $this->set('title', 'Create Sales Invoice');
 						<input type="hidden" name="voucher_no" id="" value="<?= h($voucher_no, 4, '0') ?>">
 						<div class="col-md-3">
 								<label>Party</label>
-								<?php echo $this->Form->control('party_ledger_id',['empty'=>'-Select Party-', 'class'=>'form-control input-sm party_ledger_id select2me','label'=>false,'options' => $partyOptions,'required'=>'required','value'=>$CashPartyLedgers->id,'onChange'=>'changethevalue(this.customer_id)']);
+								<?php echo $this->Form->control('party_ledger_id',['empty'=>'-Select Party-', 'class'=>'form-control input-sm party_ledger_id select2me','label'=>false,'options' => $partyOptions,'required'=>'required','value'=>$CashPartyLedgers->id]);
 								?>
 								
 						</div>
@@ -141,7 +141,7 @@ $this->set('title', 'Create Sales Invoice');
 						<div class="col-md-3">
 							<div class="form-group">
 								<label>Default Address</label>
-								<?php echo $this->Form->textarea('default_address',['class'=>'form-control input-sm ','label'=>false]);
+								<?php echo $this->Form->textarea('default_address',['class'=>'form-control input-sm default_address','label'=>false]);
 								?>
 							</div>
 						</div> 
@@ -469,6 +469,8 @@ $this->set('title', 'Create Sales Invoice');
 			var customer_state_id=$('option:selected', this).attr('party_state_id');
 			var partyexist=$('option:selected', this).attr('partyexist');
 			var due_days=$('option:selected', this).attr('default_days');
+			var customer_id=$('option:selected', this).attr('customer_id');
+			//alert(customer_id);
 			$('.dueDays').val(due_days);
 			var state_id=$('.state_id').val();
 			if(partyexist=='1')
@@ -516,7 +518,21 @@ $this->set('title', 'Create Sales Invoice');
 				$('#add_igst').hide();
 				$('#is_interstate').val('0');
 			}
-			//$(this).closest('tr').find('.output_igst_ledger_id').val(output_igst_ledger_id);
+			
+			var url='".$this->Url->build(["controller" => "Customers", "action" => "fetchAddress"])."';
+			url=url+'/'+customer_id
+			//alert(url);
+			$.ajax({
+				url: url,
+				type: 'GET'
+				//dataType: 'text'
+			}).done(function(response) { 
+				var a=$.trim(response);
+				$('.default_address').val(a);
+				
+			});
+			
+			
 		});
 		
 		$('.delete-tr').die().live('click',function() 

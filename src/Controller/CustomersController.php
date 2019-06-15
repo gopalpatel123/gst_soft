@@ -337,6 +337,18 @@ class CustomersController extends AppController
      * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
+	 public function fetchAddress($customer_id=null)
+    {
+		$this->viewBuilder()->layout('');
+		$CustomerAddresses = $this->Customers->CustomerAddresses->find()->where(['customer_id'=>$customer_id,'default_address'=>1])->first();
+		if($CustomerAddresses){
+			echo trim($CustomerAddresses->address); exit;
+			//echo "hello"; exit;
+		}else{
+			echo "";
+		}
+		exit;
+	}
     public function delete($id = null)
     {
 		

@@ -1646,7 +1646,7 @@ public function edit($id = null)
         $this->set('_serialize', ['invoiceBills']);
     } 
 	public function invoicePdf($id=null)
-    { exit;
+    { 
 		
 	    $this->viewBuilder()->layout('');
 		$company_id=$this->Auth->User('session_company_id');
