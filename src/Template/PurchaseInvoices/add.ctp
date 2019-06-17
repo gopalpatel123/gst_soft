@@ -21,12 +21,7 @@
  */
 $this->set('title', 'Purchase Invoices');
 
-$is_interstate=0;
-if($supplier_state_id== $state_id){
-		$is_interstate=0;
-}else{
-	$is_interstate=1;
-}
+
 ?>
 
 <div class="row">
@@ -41,39 +36,6 @@ if($supplier_state_id== $state_id){
 						
 					</div><br><br>
 					
-					<div class="row">
-						<div class="col-md-3">
-							<div class="form-group">
-								<label><b>GRN Voucher No :</b></label>&nbsp;&nbsp;<br>
-								<?= h('#'.str_pad($Grns->voucher_no, 4, '0', STR_PAD_LEFT)) ?>
-							</div>
-						</div>
-						<div class="col-md-3">
-							<div class="form-group">
-								<label>GRN Transaction Date </label><br/>
-								<?php echo $Grns->transaction_date; ?>
-							</div>
-						</div>
-						
-						<div class="col-md-3">
-								<label>Supplier</label>
-								<?php
-									 echo $this->Form->control('q',['class'=>'form-control input-sm supplier_state_id ','label'=>false,'type'=>'hidden','value'=>$supplier_state_id]);
-									echo $this->Form->control('supplier_ledger_id',['class'=>'form-control input-sm supplier_ledger select2me','label'=>false, 'options' => $partyOptions,'required'=>'required','value'=>$supplier_ledger_id,'disabled']);
-								?>
-						</div>
-						<div class="col-md-3">
-							<div class="form-group">
-								<label>Reference No</label><br/>
-								<?php
-									 echo $Grns->reference_no;
-								?>
-								</div>
-						</div>
-					</div><br>
-						<input type="hidden" name="state_id" class="state_id" value="<?php echo $state_id;?>">
-						<input type="hidden" name="is_interstate" id="is_interstate" value="<?php echo $is_interstate;?>">
-						<input type="hidden" name="due_days" class="dueDays" value=0>
 					<div class="row">
 						<div class="col-md-3">
 							<div class="form-group">
@@ -94,13 +56,21 @@ if($supplier_state_id== $state_id){
 								
 							</div>
 						</div>
+						
+						<div class="col-md-3">
+								<label>Supplier</label>
+								<?php
+									 
+									echo $this->Form->control('supplier_ledger_id',['class'=>'form-control input-sm supplier_ledger select2me','label'=>false, 'options' => $partyOptions,'required'=>'required']);
+								?>
+						</div>
 						<div class="col-md-3">
 								<label>Purchase Account</label>
 								<?php echo $this->Form->control('purchase_ledger_id',['class'=>'form-control input-sm  select2me','label'=>false, 'options' => $Accountledgers,'required'=>'required']);
 								?>
 						</div>
-						
-					</div>
+					</div><br>
+					
 					<div class="row">
 						<div class="col-md-5">
 							<div class="form-group">
@@ -138,72 +108,8 @@ if($supplier_state_id== $state_id){
 								</tr>
 								</thead>
 								<tbody id='main_tbody' class="tab">
-								 <?php $i=0;
-								 foreach($Grns->grn_rows as $grn_row)
-								 {
-									//pr($grn_row->item->FirstGstFigures->tax_percentage); exit;
-							     ?>
-								<tr class="main_tr" class="tab">
-									<td width="15%" align="left">
-									<input type="hidden" name="q" class="attrGet calculation" value="<?php echo $grn_row->item_id; ?>">
-									<?php echo $grn_row->item->name; ?></td>
-									<td width="5%" align="center">
-										<?php echo $this->Form->input('q', ['type'=>'hidden','label' => false,'class' => 'form-control input-sm calculation quantity rightAligntextClass','required'=>'required','placeholder'=>'Quantity', 'value'=>$grn_row->quantity]); 
-										echo $grn_row->quantity;
-										?>
-									</td>
-									<td width="8%" align="center">
-										<?php echo $this->Form->input('q', ['type'=>'text','label' => false,'class' => 'form-control input-sm  rate numberOnly rightAligntextClass','value'=>$grn_row->purchase_rate]); 
-										//echo $grn_row->purchase_rate;
-										?>
-									</td>
-									<td  width="6%" align="center">
-										<?php echo $this->Form->input('q', ['style'=>'text-align:right','label' => false,'class' => 'form-control input-sm discount numberOnly','placeholder'=>'Discount','type'=>'text','value'=>0]);
-										?>	
-									</td>
-									<td  width="10%" align="center">
-										<?php echo $this->Form->input('q', ['style'=>'text-align:right','label' => false,'class' => 'form-control input-sm discountAmount numberOnly','type'=>'text','value'=>0]);
-										?>	
-									</td>
-									<td  width="6%" align="center">
-										<?php echo $this->Form->input('q', ['style'=>'text-align:right','label' => false,'class' => 'form-control input-sm pnf numberOnly','placeholder'=>'PNF','type'=>'text','value'=>0]);
-										?>	
-									</td>
-									<td  width="10%" align="center">
-										<?php echo $this->Form->input('q', ['style'=>'text-align:right','label' => false,'class' => 'form-control input-sm pnfAmount numberOnly','type'=>'text','value'=>0]);
-										?>	
-									</td>
-									
-									<td  width="10%" align="center">
-										<?php echo $this->Form->input('q', ['style'=>'text-align:right','label' => false,'class' => 'form-control input-sm taxableValue','type'=>'text','tabindex'=>'-1']);
-										?>	
-									</td>
-									
-									<td  width="6%" align="center">
-										<?php
-											echo $this->Form->input('q', ['label' => false,'class' => 'form-control input-sm item_gst_figure_id numberOnly','placeholder'=>'','type'=>'hidden','value'=>$grn_row->item->FirstGstFigures->id]);
-											
-											echo $this->Form->input('q', ['label' => false,'class' => 'form-control input-sm gst_figure_id numberOnly','style'=>'text-align:right','placeholder'=>'','type'=>'text','value'=>$grn_row->item->FirstGstFigures->tax_percentage,'tabindex'=>'-1']);
-											//echo $this->Form->input('q', ['style'=>'text-align:right','label' => false,'class' => 'form-control input-sm gst_figure_id numberOnly','placeholder'=>'','type'=>'text','value'=>$grn_row->item->FirstGstFigures->tax_percentage,'tabindex'=>'-1']);
-										?>	
-									</td>
-									<td  width="10%" align="center">
-										<?php echo $this->Form->input('q', ['style'=>'text-align:right','label' => false,'class' => 'form-control input-sm gstValue','type'=>'text','tabindex'=>'-1']);
-										?>	
-									</td>
-									<td  width="7%" align="center">
-										<?php echo $this->Form->input('q', ['style'=>'text-align:right','label' => false,'class' => 'form-control input-sm roundOff','placeholder'=>'','type'=>'text']);
-										?>	
-									</td>
-									<td  width="20%" align="center">
-										<?php echo $this->Form->input('q', ['style'=>'text-align:right','readonly','label' => false,'class' => 'form-control input-sm netAmount','type'=>'text','tabindex'=>'-1']);
-										?>	
-									</td>
-								
-															
-								
-							</tr>
-								<?php $i++; } ?>
+								 
+								 
 								<tr>
 									<td  colspan="3" align="right">
 										<?php echo "Total";?>	
@@ -237,6 +143,42 @@ if($supplier_state_id== $state_id){
 		</div>
 	</div>
 </div>
+
+
+<table id="sample_table" style="display:none;" width="100%">
+	<tbody>
+		<tr class="main_tr" class="tab">
+			<td width="">
+				<?php echo $this->Form->input('item_id', ['empty'=>'---Select---','options'=>$itemOptions,'label' => false,'class' => 'form-control input-medium ','required'=>'required']); ?>
+			</td>
+			<td width="" >
+				<?php echo $this->Form->input('quantity', ['label' => false,'class' => 'form-control input-sm numberOnly rightAligntextClass','placeholder'=>'Qty','required']); ?>
+			</td>
+			<td width="">
+				<?php echo $this->Form->input('purchase_rate', ['label' => false,'class' => 'form-control input-sm total numberOnly rightAligntextClass','required'=>'required','placeholder'=>'Purchase Rate','required']); ?>	
+			</td>
+			<td  width="6%" align="center">
+				<?php echo $this->Form->input('q', ['style'=>'text-align:right','label' => false,'class' => 'form-control input-sm discount numberOnly','placeholder'=>'Discount','type'=>'text','value'=>0]);
+				?>	
+			</td>
+			<td  width="10%" align="center">
+				<?php echo $this->Form->input('q', ['style'=>'text-align:right','label' => false,'class' => 'form-control input-sm discountAmount numberOnly','type'=>'text','value'=>0]);
+				?>	
+			</td>
+			<td  width="6%" align="center">
+				<?php echo $this->Form->input('q', ['style'=>'text-align:right','label' => false,'class' => 'form-control input-sm pnf numberOnly','placeholder'=>'PNF','type'=>'text','value'=>0]);
+				?>	
+			</td>
+			<td  width="10%" align="center">
+				<?php echo $this->Form->input('q', ['style'=>'text-align:right','label' => false,'class' => 'form-control input-sm pnfAmount numberOnly','type'=>'text','value'=>0]);
+				?>	
+			</td>
+			<td align="center">
+				<a class="btn btn-danger delete-tr btn-xs" href="#" role="button" style="margin-bottom: 5px;"><i class="fa fa-times"></i></a>
+			</td>
+		</tr>
+	</tbody>
+</table>
 
 <!-- BEGIN PAGE LEVEL STYLES -->
 	<!-- BEGIN COMPONENTS PICKERS -->

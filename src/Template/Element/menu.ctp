@@ -32,6 +32,26 @@ if(!empty(count(array_intersect($userPages, $target)))){?>
 </li>
 <?php }?>
 
+
+<?php 
+$target=array("10","11");
+if(!empty(count(array_intersect($userPages, $target)))){?>
+<li class="start ">
+	<a href="javascript:;">
+
+	<i class="fa fa-paragraph"></i>
+	<span class="title">Purchase Invoice</span>
+	<span class="arrow "></span>
+	</a>
+	<ul class="sub-menu">
+	 <?php if (in_array("10", $userPages)){?>
+		<li><?php echo $this->Html->link($this->Html->tag('i', '', ['class' => 'fa fa-plus-square']).' Create', '/Grns/PurchaseInvoiceAdd',['escape' => false]); ?></li><?php }?>
+		 <?php if (in_array("11", $userPages)){?>
+		<li><?php echo $this->Html->link($this->Html->tag('i', '', ['class' => 'fa fa-list-ul']).' List', '/PurchaseInvoices',['escape' => false]); ?></li><?php }?>
+	</ul>
+</li>
+<?php }?>
+
 <?php 
 $target=array("19","20","21","22","23","24","25","26","27");
 if(!empty(count(array_intersect($userPages, $target)))){

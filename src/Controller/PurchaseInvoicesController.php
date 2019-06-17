@@ -170,16 +170,9 @@ class PurchaseInvoicesController extends AppController
 		$stateDetails=$this->Auth->User('session_company');
 		$financialYear_id=$this->Auth->User('financialYear_id');
 		$state_id=$stateDetails->state_id;
-        $Grns = $this->PurchaseInvoices->Grns->get($id, [
-            'contain' => (['GrnRows'=>['Items'=>['FirstGstFigures']],'SupplierLedgers'])
-        ]);
+        $Grns =  $this->PurchaseInvoices->newEntity();
 		
-		$supplier_status="False";
-		if($Grns->supplier_ledger_id==0){
-			$supplier_status="True";
-			goto go;
-		}
-		 $supplier_ledger_id=$Grns->supplier_ledger_id;
+		
 		$Voucher_no_last = $this->PurchaseInvoices->find()->select(['voucher_no'])->where(['PurchaseInvoices.company_id'=>$company_id,'PurchaseInvoices.financial_year_id'=>$financialYear_id])->order(['voucher_no' => 'DESC'])->first();
 		//pr($Grns->supplier_ledger_id); exit;
         $purchaseInvoice = $this->PurchaseInvoices->newEntity();
@@ -344,8 +337,6 @@ class PurchaseInvoicesController extends AppController
 							->contain(['Suppliers']);
         }
 
-		$SupplierLedgersDetails = $this->PurchaseInvoices->Grns->SupplierLedgers->find()->where(['SupplierLedgers.id'=>$Grns->supplier_ledger->id])->contain(['Suppliers'])->first();
-		$supplier_state_id=$SupplierLedgersDetails->supplier->state_id;
 		
 		//$supplier_state_id=$supplier_ledger_detail->supplier->state_id;
 		
