@@ -17,7 +17,7 @@ $this->set('title', 'Voucher Setup');
 			<div class="portlet-body">
 				<div class="row">
 					<?php
-					$target=array("28","29");
+					/*$target=array("28","29");
 					if(!empty(count(array_intersect($userPages, $target)))){?>
 					<div class="col-md-3">
 						<span class="caption-subject bold ">Sales Voucher</span>
@@ -78,7 +78,7 @@ if(!empty(count(array_intersect($userPages, $target)))){?>
 							<?php }?> 
 						</div>
 					</div>
-					<?php }?>
+					<?php }*/?>
 					
 					<?php
 $target=array("40","41");
@@ -140,7 +140,7 @@ if(!empty(count(array_intersect($userPages, $target)))){?>
 					</div>
 					<?php }?>
 					<?php
-$target=array("52","53");
+/*$target=array("52","53");
 if(!empty(count(array_intersect($userPages, $target)))){?>
 					<div class="col-md-3">
 						<span class="caption-subject bold ">Stock Journals</span>
@@ -153,7 +153,7 @@ if(!empty(count(array_intersect($userPages, $target)))){?>
 							<?php }?>
 						</div>
 					</div>
-					<?php }?>
+					<?php }*/?>
 				</div>
 			</div>
 		</div>

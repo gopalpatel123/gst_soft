@@ -44,21 +44,21 @@ $this->set('title', 'Create Item');
 									<?php echo $this->Form->control('unit_id',['class'=>'form-control input-sm select2me','label'=>false, 'options' => $units,'required'=>'required']); ?>
 								</div>
 							</div>
-							<div class="col-md-6">
+							<!--<div class="col-md-6">
 								<div class="form-group">
 									<label>Size </label>
-									<?php echo $this->Form->control('size_id',['class'=>'form-control input-sm select2me','label'=>false,'empty'=>'-Size-', 'options' => $sizes]); ?>
+									<?php/* echo $this->Form->control('size_id',['class'=>'form-control input-sm select2me','label'=>false,'empty'=>'-Size-', 'options' => $sizes]);*/ ?>
 								</div>
 							</div>
-							
+							-->
 						</div>
 						<div class="row">
-							<div class="col-md-6">
+						<!--	<div class="col-md-6">
 								<div class="form-group">
 									<label>Shade </label>
-									<?php echo $this->Form->control('shade_id',['class'=>'form-control input-sm select2me','label'=>false,'empty'=>'-Shade-', 'options' => $shades]); ?>
+									<?php /*echo $this->Form->control('shade_id',['class'=>'form-control input-sm select2me','label'=>false,'empty'=>'-Shade-', 'options' => $shades]); */?>
 								</div>
-							</div>
+							</div>-->
 							<div class="col-md-6">
 								<div class="form-group">
 									<label>Purchase/Manufacturer </label>
@@ -84,11 +84,11 @@ $this->set('title', 'Create Item');
 					</div>
 					<div class="col-md-6">
 						<span class="caption-subject bold " style="float:center;">Opening Balance</span><hr style="margin: 6px 0;">
-						<div class="row">
+						<!--<div class="row">
 							<div class="col-md-4">
 								<div class="form-group">
 									<label>Quantity </label>
-									<?php echo $this->Form->control('quantity',['class'=>' rightAligntextClass form-control input-sm qty calculation reverseCalculation','label'=>false,'placeholder'=>'Quantity']); ?>
+									<?php /* echo $this->Form->control('quantity',['class'=>' rightAligntextClass form-control input-sm qty calculation reverseCalculation','label'=>false,'placeholder'=>'Quantity']); ?>
 								</div>
 							</div>
 							<div class="col-md-4">
@@ -100,10 +100,11 @@ $this->set('title', 'Create Item');
 							<div class="col-md-4">
 								<div class="form-group">
 									<label>Value </label>
-									<?php echo $this->Form->control('amount',['class'=>'rightAligntextClass form-control input-sm amt reverseCalculation','label'=>false,'placeholder'=>'Value']); ?>
+									<?php echo $this->Form->control('amount',['class'=>'rightAligntextClass form-control input-sm amt reverseCalculation','label'=>false,'placeholder'=>'Value']); */?>
 								</div>
 							</div>
 						</div>
+						-->
 						<div class="row">
 							<div class="col-md-4">
 								<div class="form-group">
@@ -150,24 +151,25 @@ $this->set('title', 'Create Item');
 								</div>
 							</div>
 						</div>
-						<span class="caption-subject bold " style="float:center;">Barcode Generation</span><hr style="margin: 6px 0;">
+					<!--	<span class="caption-subject bold " style="float:center;">Barcode Generation</span><hr style="margin: 6px 0;">
 						<div class="row" >
 							<div class="col-md-12">
 								<div class="form-group">
 									<div class="radio-list">
 										<div class="radio-inline" style="padding-left: 0px;">
-											<?php echo $this->Form->radio(
+											<?php /*echo $this->Form->radio(
 											'barcode_decision',
 											[
 												['value' => '1', 'text' => 'Let system  generate barcode','class' => 'barcode_decision','checked' => 'checked'],
 												['value' => '2', 'text' => 'Already have barcode','class' => 'barcode_decision']
 											]
-											); ?>
+											);*/ ?>
 										</div>
                                     </div>
 								</div>
 							</div>
 						</div>
+						-->
 						<div class="row" >
 							<div class="col-md-4">
 								<div class="form-group item_code_div" style="display:none;">
@@ -176,6 +178,7 @@ $this->set('title', 'Create Item');
 								</div>
 							</div>
 						</div>
+						
 					</div>
 				</div>
 				<?= $this->Form->button(__('Submit'),['class'=>'btn btn-success']) ?>

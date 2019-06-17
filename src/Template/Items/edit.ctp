@@ -44,20 +44,22 @@ $this->set('title', 'Edit Item');
 									<?php echo $this->Form->control('unit_id',['class'=>'form-control input-sm select2me','label'=>false,'empty'=>'-Unit-', 'options' => $units,'required'=>'required']); ?>
 								</div>
 							</div>
-							<div class="col-md-6">
+						<!--	<div class="col-md-6">
 								<div class="form-group">
 									<label>Size </label>
 									<?php echo $this->Form->control('size_id',['class'=>'form-control input-sm select2me','label'=>false,'empty'=>'-Size-', 'options' => $sizes]); ?>
 								</div>
 							</div>
+							-->
 						</div>
 						<div class="row">
-							<div class="col-md-6">
+							<!--<div class="col-md-6">
 								<div class="form-group">
 									<label>Shade </label>
-									<?php echo $this->Form->control('shade_id',['class'=>'form-control input-sm select2me','label'=>false,'empty'=>'-Shade-', 'options' => $shades]); ?>
+									<?php /*echo $this->Form->control('shade_id',['class'=>'form-control input-sm select2me','label'=>false,'empty'=>'-Shade-', 'options' => $shades]); */?>
 								</div>
 							</div>
+							-->
 							<?php 
 							if($item->purchase_manufacturer=="Purchase"){ $checked1="checked";}else{$checked1= "";}
 							if($item->purchase_manufacturer=="Manufacturer"){ $checked1="checked"; 	}else{$checked1= "";}
@@ -89,7 +91,7 @@ $this->set('title', 'Edit Item');
 					<div class="col-md-6">
 						<span class="caption-subject bold " style="float:center;">Opening Balance</span><hr style="margin: 6px 0;">
 						<div class="row">
-							<div class="col-md-4">
+							<!--<div class="col-md-4">
 								<div class="form-group">
 									<label>Quantity </label>
 									<?php 
@@ -107,16 +109,16 @@ $this->set('title', 'Edit Item');
 									<label>Value </label>
 									<?php echo $this->Form->control('amount',['class'=>'rightAligntextClass form-control input-sm amt reverseCalculation','label'=>false,'placeholder'=>'Value','value'=>@$item->item_ledgers[0]->amount]); ?>
 								</div>
-							</div>
+							</div>-->
 						</div>
                         <div class="row">
-							<div class="col-md-4">
+							<!--<div class="col-md-4">
 								<div class="form-group">
 									<label>Purchase Rate </label></br>
 									<?php echo @$itemPurchaseRate; ?>
 								</div>
 							</div>
-						
+					-->
 							<div class="col-md-4">
 								<div class="form-group">
 									<label>Sales Rate </label>
@@ -171,7 +173,7 @@ $this->set('title', 'Edit Item');
 								</div>
 							</div>
 						</div>
-						<span class="caption-subject bold " style="float:center;">Barcode</span><hr style="margin: 6px 0;">
+						<!--<span class="caption-subject bold " style="float:center;">Barcode</span><hr style="margin: 6px 0;">
 						<div class="row" >
 							<div class="col-md-6">
 								<span>Item Code: <?php echo $item->item_code; ?></span>
@@ -180,6 +182,7 @@ $this->set('title', 'Edit Item');
 								<?= $this->Html->Image('barcode/'.$item->id.'.png') ?>
 							</div>
 						</div>	
+						-->
 					</div>
 				</div>
 				<?= $this->Form->button(__('Submit'),['class'=>'btn btn-success']) ?>

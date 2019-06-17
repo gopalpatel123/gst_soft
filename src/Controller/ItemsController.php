@@ -98,7 +98,7 @@ class ItemsController extends AppController
 		$this->request->data['company_id'] =$company_id;
 		if ($this->request->is('post')) {
 			$item = $this->Items->patchEntity($item, $this->request->getData());
-			$quantity = $this->request->data['quantity'];
+			//$quantity = $this->request->data['quantity'];
 
 			$gst_type = $item->kind_of_gst;
 			if($gst_type=='fix')
@@ -107,21 +107,21 @@ class ItemsController extends AppController
 				$item->second_gst_figure_id = $first_gst_figure_id;
 				$item->gst_amount           = 0;
 			}
-			if($item->barcode_decision==1){
+			/* if($item->barcode_decision==1){
 				$item->item_code=strtoupper(uniqid());
 				$data_to_encode = $item->item_code;
 			}else{
 				$item->item_code=strtoupper($item->provided_item_code);
 				$data_to_encode = strtoupper($item->provided_item_code);
-			}
+			} */
 			$item->sales_rate_update_on = $this->Auth->User('session_company')->books_beginning_from;
             if ($this->Items->save($item))
 			{
-				$barcode = new BarcodeHelper(new \Cake\View\View());
+				//$barcode = new BarcodeHelper(new \Cake\View\View());
 				
 					
 				// Generate Barcode data
-				$barcode->barcode();
+				/* $barcode->barcode();
 				$barcode->setType('C128');
 				$barcode->setCode($data_to_encode);
 				$barcode->setSize(20,100);
@@ -132,9 +132,9 @@ class ItemsController extends AppController
 					
 				// Generates image file on server    
 				$barcode->writeBarcodeFile($file);
+			 */
 			
-			
-				$transaction_date=$this->Auth->User('session_company')->books_beginning_from;
+				/* $transaction_date=$this->Auth->User('session_company')->books_beginning_from;
 				if($quantity>0)
 				{
 					$itemLedger = $this->Items->ItemLedgers->newEntity();
@@ -148,7 +148,7 @@ class ItemsController extends AppController
 					$itemLedger->company_id         = $company_id;
 					$itemLedger->location_id        = $location_id;
 					$this->Items->ItemLedgers->save($itemLedger);
-				}
+				} */
 				
                 $this->Flash->success(__('The item has been saved.'));
 
