@@ -17,7 +17,7 @@ $this->set('title', 'Master Setup');
 			<div class="portlet-body">
 				<div class="row">
 				<?php
-					$target=array("55","56");
+				/*	$target=array("55","56");
 					if(!empty(count(array_intersect($userPages, $target)))){?>
 					<div class="col-md-6">
 						<span class="caption-subject bold ">Stock Groups</span>
@@ -30,18 +30,34 @@ $this->set('title', 'Master Setup');
 							<?php }?>
 						</div>
 					</div>
-					<?php }?>
+					<?php }*/?>
 					<?php
-					$target=array("58","59");
+					$target=array("64","65");
 					if(!empty(count(array_intersect($userPages, $target)))){?>
 					<div class="col-md-6">
-						<span class="caption-subject bold ">Items</span>
+						<span class="caption-subject bold ">Units</span>
 						<div class="list-group">
-						<?php if (in_array("58", $userPages)){?>
-							<?php echo $this->Html->link($this->Html->tag('i', '', ['class' => 'fa fa-plus-square menuCss']).' Create', '/Items/Add',['escape' => false, 'class'=>'list-group-item']); ?>
+						<?php if (in_array("64", $userPages)){?>
+							<?php echo $this->Html->link($this->Html->tag('i', '', ['class' => 'fa fa-plus-square menuCss']).' Create', '/Units/Add',['escape' => false, 'class'=>'list-group-item']); ?>
 							<?php }?>
-							<?php if (in_array("59", $userPages)){?>
-							<?php echo $this->Html->link($this->Html->tag('i', '', ['class' => 'fa fa-list-ul menuCss']).' List', '/Items',['escape' => false, 'class'=>'list-group-item']); ?>
+							<?php if (in_array("65", $userPages)){?>
+							<?php echo $this->Html->link($this->Html->tag('i', '', ['class' => 'fa fa-list-ul menuCss']).' List', '/Units',['escape' => false, 'class'=>'list-group-item']); ?>
+							<?php }?>
+						</div>
+					</div>
+					<?php }?>
+					
+					<?php
+					$target=array("64","65");
+					if(!empty(count(array_intersect($userPages, $target)))){?>
+					<div class="col-md-6">
+						<span class="caption-subject bold ">Weights</span>
+						<div class="list-group">
+						<?php if (in_array("64", $userPages)){?>
+							<?php echo $this->Html->link($this->Html->tag('i', '', ['class' => 'fa fa-plus-square menuCss']).' Create', '/Weights/Add',['escape' => false, 'class'=>'list-group-item']); ?>
+							<?php }?>
+							<?php if (in_array("65", $userPages)){?>
+							<?php echo $this->Html->link($this->Html->tag('i', '', ['class' => 'fa fa-list-ul menuCss']).' List', '/Weights',['escape' => false, 'class'=>'list-group-item']); ?>
 							<?php }?>
 						</div>
 					</div>
@@ -63,22 +79,24 @@ $this->set('title', 'Master Setup');
 					</div>
 					<?php }?>
 					<?php
-					$target=array("64","65");
+					$target=array("58","59");
 					if(!empty(count(array_intersect($userPages, $target)))){?>
 					<div class="col-md-6">
-						<span class="caption-subject bold ">Units</span>
+						<span class="caption-subject bold ">Items</span>
 						<div class="list-group">
-						<?php if (in_array("64", $userPages)){?>
-							<?php echo $this->Html->link($this->Html->tag('i', '', ['class' => 'fa fa-plus-square menuCss']).' Create', '/Units/Add',['escape' => false, 'class'=>'list-group-item']); ?>
+						<?php if (in_array("58", $userPages)){?>
+							<?php echo $this->Html->link($this->Html->tag('i', '', ['class' => 'fa fa-plus-square menuCss']).' Create', '/Items/Add',['escape' => false, 'class'=>'list-group-item']); ?>
 							<?php }?>
-							<?php if (in_array("65", $userPages)){?>
-							<?php echo $this->Html->link($this->Html->tag('i', '', ['class' => 'fa fa-list-ul menuCss']).' List', '/Units',['escape' => false, 'class'=>'list-group-item']); ?>
+							<?php if (in_array("59", $userPages)){?>
+							<?php echo $this->Html->link($this->Html->tag('i', '', ['class' => 'fa fa-list-ul menuCss']).' List', '/Items',['escape' => false, 'class'=>'list-group-item']); ?>
 							<?php }?>
 						</div>
 					</div>
 					<?php }?>
+					
+					
 					<?php
-					$target=array("67","68");
+					/*$target=array("67","68");
 					if(!empty(count(array_intersect($userPages, $target)))){?>
 					<div class="col-md-6">
 						<span class="caption-subject bold ">Sizes</span>
@@ -91,7 +109,7 @@ $this->set('title', 'Master Setup');
 							<?php }?>
 						</div>
 					</div>
-					<?php }?>
+					<?php }*/?>
 				</div>
 			</div>
 		</div>
@@ -105,7 +123,7 @@ $this->set('title', 'Master Setup');
 				</div>
 			</div>
 			<div class="portlet-body">
-				<div class="row">
+			<!--	<div class="row">
 				<?php
 					$target=array("70","71");
 					if(!empty(count(array_intersect($userPages, $target)))){?>
@@ -138,7 +156,7 @@ $this->set('title', 'Master Setup');
 					<?php }?>
 				</div>
 			</div>
-			
+			-->
 			
 			<div class="portlet-body">
 				<div class="row">
