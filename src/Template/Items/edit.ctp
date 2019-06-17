@@ -51,15 +51,16 @@ $this->set('title', 'Edit Item');
 								</div>
 							</div>
 							-->
-						</div>
-						<div class="row">
-							<!--<div class="col-md-6">
+								<div class="col-md-6">
 								<div class="form-group">
 									<label>Shade </label>
-									<?php /*echo $this->Form->control('shade_id',['class'=>'form-control input-sm select2me','label'=>false,'empty'=>'-Shade-', 'options' => $shades]); */?>
+									<?php echo $this->Form->control('shade_id',['class'=>'form-control input-sm select2me','label'=>false,'empty'=>'-Shade-', 'options' => $shades]); ?>
 								</div>
 							</div>
-							-->
+						</div>
+						<div class="row">
+					
+						
 							<?php 
 							if($item->purchase_manufacturer=="Purchase"){ $checked1="checked";}else{$checked1= "";}
 							if($item->purchase_manufacturer=="Manufacturer"){ $checked1="checked"; 	}else{$checked1= "";}
@@ -68,10 +69,10 @@ $this->set('title', 'Edit Item');
 							?>
 								<div class="col-md-6">
 								<div class="form-group">
-									<label>Purchase/Manufacturer </label>
+									<label>Purchaser/Manufacturer </label>
 									<?php 
 									$opt=[];
-									$opt[]=['text'=>'Purchase','value'=>'Purchase'];
+									$opt[]=['text'=>'Purchaser','value'=>'Purchaser'];
 									$opt[]=['text'=>'Manufacturer','value'=>'Manufacturer'];
 									?>
 									<?php echo $this->Form->control('purchase_manufacturer',['class'=>'form-control input-sm select2me','label'=>false, 'options' =>$opt,'check' =>$checked1 ]); ?>
