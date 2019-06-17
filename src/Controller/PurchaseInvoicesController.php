@@ -171,10 +171,10 @@ class PurchaseInvoicesController extends AppController
 		$financialYear_id=$this->Auth->User('financialYear_id');
 		$state_id=$stateDetails->state_id;
         $Grns =  $this->PurchaseInvoices->newEntity();
-		
+		$FinancialYearData=$this->PurchaseInvoices->Companies->FinancialYears->get($financialYear_id);
 		
 		$Voucher_no_last = $this->PurchaseInvoices->find()->select(['voucher_no'])->where(['PurchaseInvoices.company_id'=>$company_id,'PurchaseInvoices.financial_year_id'=>$financialYear_id])->order(['voucher_no' => 'DESC'])->first();
-		//pr($Grns->supplier_ledger_id); exit;
+		//pr($FinancialYearData); exit;
         $purchaseInvoice = $this->PurchaseInvoices->newEntity();
         if ($this->request->is('post')) {
             $purchaseInvoice = $this->PurchaseInvoices->patchEntity($purchaseInvoice, $this->request->getData());
@@ -363,12 +363,22 @@ class PurchaseInvoicesController extends AppController
 			$account_ids = explode(",",trim($account_ids,','));
 			$Accountledgers = $this->PurchaseInvoices->Grns->GrnRows->Ledgers->find('list')->where(['Ledgers.accounting_group_id IN' =>$account_ids]);
         }
-		go:
-		//pr($Accountledgers->toArray());
-		//exit;
+		//go:
+		
+		$items = $this->PurchaseInvoices->Grns->GrnRows->Items->find()
+					->where(['Items.company_id'=>$company_id])
+					->contain(['FirstGstFigures']);
+		$itemOptions=[];
+		//\pr($items->toArray()); exit;
+		foreach($items as $item)
+		{ 
+			$itemOptions[]=['text' =>$item->item_code.' '.$item->name, 'value' => $item->id, 'gst_figure_tax_name'=>@$item->FirstGstFigures->tax_percentage,'gst_figure_id'=>@$item->FirstGstFigures->id];
+		}
+		
+	//	pr($itemOptions);exit;
         $companies = $this->PurchaseInvoices->Companies->find('list', ['limit' => 200]);
         $supplierLedgers = $this->PurchaseInvoices->SupplierLedgers->find('list', ['limit' => 200]);
-        $this->set(compact('purchaseInvoice', 'companies', 'supplierLedgers','Grns','partyOptions','state_id','Accountledgers','supplier_state_id','Voucher_no_last','supplier_status','supplier_ledger_id'));
+        $this->set(compact('purchaseInvoice', 'companies', 'supplierLedgers','Grns','partyOptions','state_id','Accountledgers','supplier_state_id','Voucher_no_last','supplier_status','supplier_ledger_id','itemOptions','FinancialYearData'));
         $this->set('_serialize', ['purchaseInvoice']);
     }
 

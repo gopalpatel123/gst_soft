@@ -1,19 +1,4 @@
-<?php if($supplier_status=="True"){ ?>
-	
-<div class="row">
-	<div class="col-md-12">
-		<div class="portlet light ">
-			<div class="portlet-title">
-				<div class="caption">
-					<i class="icon-bar-chart font-green-sharp hide"></i>
-					<span class="caption-subject bold ">Please Select Supplier In GRN</span>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-	
-<?php }  else{ ?>
+
 
 <?php //pr($salesInvoice); exit;
 /**
@@ -40,11 +25,30 @@ $this->set('title', 'Purchase Invoices');
 						<div class="col-md-3">
 							<div class="form-group">
 								<label><b>Purchase Invoice Voucher No :</b></label>&nbsp;&nbsp;<br>
-								<?php if(empty($Voucher_no_last)){ ?>
-									<?= h('#'.str_pad(1, 4, '0', STR_PAD_LEFT)) ?>
-								<?php }else{ ?>
-									<?= h('#'.str_pad($Voucher_no_last->voucher_no+1, 4, '0', STR_PAD_LEFT)) ?>
-								<?php } ?>
+								
+								<?php
+								//echo $coreVariable['company_name']; exit;
+								   // $date = date('Y-m-d');
+								    $date=date('Y-m-d',strtotime($FinancialYearData->fy_from));
+									$d = date_parse_from_format('Y-m-d',$date);
+									$yr=$d["year"];$year= substr($yr, -2);
+									if($d["month"]=='01' || $d["month"]=='02' || $d["month"]=='03')
+									{
+									  $startYear=$year-1;
+									  $endYear=$year;
+									  $financialyear=$startYear.'-'.$endYear;
+									}
+									else
+									{
+									  $startYear=$year;
+									  $endYear=$year+1;
+									  $financialyear=$startYear.'-'.$endYear;
+									}
+								$words = explode(" ", $coreVariable['company_name']);
+								$acronym = "NMPU";
+								
+								?>
+								<?= $acronym.'/'.$financialyear.'/'. h(str_pad($Voucher_no_last+1, 5, '0', STR_PAD_LEFT))?>
 							</div>
 						</div>
 						
@@ -72,6 +76,13 @@ $this->set('title', 'Purchase Invoices');
 					</div><br>
 					
 					<div class="row">
+						<div class="col-md-3">
+							<div class="form-group">
+								<label>Supplier Invoice No. </label>
+								
+								<?php echo $this->Form->input('supplier_invoice_no', ['label' => false,'class' => 'form-control input-sm','placeholder'=>'Supplier Invoice No','required']); ?>
+							</div>
+						</div>
 						<div class="col-md-5">
 							<div class="form-group">
 								<label>Narration </label>
@@ -87,21 +98,21 @@ $this->set('title', 'Purchase Invoices');
 								style=" height: 24px; padding: 0px 0px;font-size: 12px;" width="100%">
 								<thead>
 								<tr align="center">
-									<th rowspan="2" style="text-align:left;"><label>Item<label></td>
+									<th rowspan="2" style="text-align:center;"><label>Item<label></td>
 									<th rowspan="2" style="text-align:center;"><label>Qty<label></td>
 									<th rowspan="2" style="text-align:center;"><label>Rate<label></td>
-									<th  colspan="2" style="text-align:center;"><label align="center">Discount (%)</label></th>
-									<th  colspan="2" style="text-align:center;"><label align="center">PNF (%)</label></th>
+									<!--<th  colspan="2" style="text-align:center;"><label align="center">Discount (%)</label></th>
+									<!--<th  colspan="2" style="text-align:center;"><label align="center">PNF (%)</label></th>-->
 									<th rowspan="2" style="text-align:center;"><label>Taxable Value<label></td>
 									<th colspan="2" style="text-align:center;"><label id="gstDisplay">GST<label></th>
-									<th rowspan="2" style="text-align:center;"><label>Round off<label></td>
 									<th rowspan="2" style="text-align:center;"><label>Total<label></td>
+									<th rowspan="2"><div align="center"></div></th>
 								</tr>
 								<tr>
-									<th><div align="center">%</div></th>
+									<!--<th><div align="center">%</div></th>
 									<th><div align="center">Rs</div></th>
-									<th><div align="center">%</div></th>
-									<th><div align="center">Rs</div></th>
+									<!--<th><div align="center">%</div></th>
+									<th><div align="center">Rs</div></th>-->
 									<th><div align="center">%</div></th>
 									<th><div align="center">Rs</div></th>
 									
@@ -109,31 +120,32 @@ $this->set('title', 'Purchase Invoices');
 								</thead>
 								<tbody id='main_tbody' class="tab">
 								 
-								 
+								 </tbody>
+								 <tfoot>
 								<tr>
 									<td  colspan="3" align="right">
 										<?php echo "Total";?>	
 									</td>
-									<td  colspan="2" align="right">
+									<!--<td  colspan="2" align="right">
 										<?php echo $this->Form->input('total_discount_amt', ['style'=>'text-align:right','readonly','label' => false,'class' => 'form-control input-sm total_discount_amt','type'=>'text','tabindex'=>'-1']);	 ?>
 									</td>
 									<td  colspan="2" align="right">
 										<?php echo $this->Form->input('total_pnf_amt', ['style'=>'text-align:right','readonly','label' => false,'class' => 'form-control input-sm total_pnf_amt','type'=>'text','tabindex'=>'-1']);	 ?>
-									</td>
+									</td>-->
 									<td  colspan="1" align="right">
 										<?php echo $this->Form->input('total_taxable_value', ['style'=>'text-align:right','readonly','label' => false,'class' => 'form-control input-sm total_taxable_value','type'=>'text','tabindex'=>'-1']);	 ?>
 									</td>
 									<td  colspan="2" align="right">
 										<?php echo $this->Form->input('total_gst_value', ['style'=>'text-align:right','readonly','label' => false,'class' => 'form-control input-sm total_gst_value','type'=>'text','tabindex'=>'-1']);	 ?>
 									</td>
-									<td  colspan="1" align="right">
-										<?php echo $this->Form->input('total_round_amount', ['style'=>'text-align:right','readonly','label' => false,'class' => 'form-control input-sm total_round_amount','type'=>'text','tabindex'=>'-1']);	 ?>
-									</td>
+									
 									<td  colspan="1" align="right">
 										<?php echo $this->Form->input('total_amount', ['style'=>'text-align:right','readonly','label' => false,'class' => 'form-control input-sm total_amount','type'=>'text','tabindex'=>'-1']);	 ?>
 									</td>
+									<td ><div align="center"></div></td>
+									
 								</tr>
-								</tbody>
+								</tfoot>
 					</table>
 				   </div>
 				  </div>
@@ -149,31 +161,40 @@ $this->set('title', 'Purchase Invoices');
 	<tbody>
 		<tr class="main_tr" class="tab">
 			<td width="">
-				<?php echo $this->Form->input('item_id', ['empty'=>'---Select---','options'=>$itemOptions,'label' => false,'class' => 'form-control input-medium ','required'=>'required']); ?>
+				<?php echo $this->Form->input('item_id', ['empty'=>'---Select---','options'=>@$itemOptions,'label' => false,'class' => 'form-control input-medium item_id','required'=>'required']); ?>
 			</td>
 			<td width="" >
-				<?php echo $this->Form->input('quantity', ['label' => false,'class' => 'form-control input-sm numberOnly rightAligntextClass','placeholder'=>'Qty','required']); ?>
+				<?php echo $this->Form->input('quantity', ['label' => false,'class' => 'form-control input-sm numberOnly rightAligntextClass quantity','placeholder'=>'Qty','required']); ?>
 			</td>
 			<td width="">
-				<?php echo $this->Form->input('purchase_rate', ['label' => false,'class' => 'form-control input-sm total numberOnly rightAligntextClass','required'=>'required','placeholder'=>'Purchase Rate','required']); ?>	
+				<?php echo $this->Form->input('purchase_rate', ['label' => false,'class' => 'form-control input-sm total numberOnly rightAligntextClass rate','required'=>'required','placeholder'=>'Purchase Rate','required']); ?>	
 			</td>
-			<td  width="6%" align="center">
-				<?php echo $this->Form->input('q', ['style'=>'text-align:right','label' => false,'class' => 'form-control input-sm discount numberOnly','placeholder'=>'Discount','type'=>'text','value'=>0]);
-				?>	
-			</td>
+			
 			<td  width="10%" align="center">
-				<?php echo $this->Form->input('q', ['style'=>'text-align:right','label' => false,'class' => 'form-control input-sm discountAmount numberOnly','type'=>'text','value'=>0]);
+				<?php echo $this->Form->input('q', ['style'=>'text-align:right','label' => false,'class' => 'form-control input-sm taxableValue','type'=>'text','tabindex'=>'-1']);
 				?>	
 			</td>
 			<td  width="6%" align="center">
-				<?php echo $this->Form->input('q', ['style'=>'text-align:right','label' => false,'class' => 'form-control input-sm pnf numberOnly','placeholder'=>'PNF','type'=>'text','value'=>0]);
+				<?php
+				
+					echo $this->Form->input('q', ['label' => false,'class' => 'form-control input-sm gst_figure_id numberOnly','placeholder'=>'','type'=>'hidden']);
+					
+					echo $this->Form->input('q', ['label' => false,'class' => 'form-control input-sm gst_percentage numberOnly','style'=>'text-align:right','placeholder'=>'','type'=>'text','tabindex'=>'-1']);
+					
 				?>	
 			</td>
 			<td  width="10%" align="center">
-				<?php echo $this->Form->input('q', ['style'=>'text-align:right','label' => false,'class' => 'form-control input-sm pnfAmount numberOnly','type'=>'text','value'=>0]);
+				<?php echo $this->Form->input('q', ['style'=>'text-align:right','label' => false,'class' => 'form-control input-sm gstValue','type'=>'text','tabindex'=>'-1']);
+				?>	
+			</td>
+			
+			<td  width="20%" align="center">
+				<?php echo $this->Form->input('q', ['style'=>'text-align:center','readonly','label' => false,'class' => 'form-control input-sm netAmount','type'=>'text','tabindex'=>'-1']);
 				?>	
 			</td>
 			<td align="center">
+			
+				<a class="btn btn-default add_row btn-xs" href="#" role="button" style="margin-bottom: 5px;"><i class="fa fa-plus"></i></a>
 				<a class="btn btn-danger delete-tr btn-xs" href="#" role="button" style="margin-bottom: 5px;"><i class="fa fa-times"></i></a>
 			</td>
 		</tr>
@@ -258,87 +279,65 @@ $this->set('title', 'Purchase Invoices');
 			}
 			//$(this).closest('tr').find('.output_igst_ledger_id').val(output_igst_ledger_id);
 		
+	$('.item_id').die().live('change',function(){ 
+		var gst_figure_id=$('option:selected', this).attr('gst_figure_id');
+		var gst_percentage=$('option:selected', this).attr('gst_figure_tax_name');
+		$(this).closest('tr').find('.gst_figure_id').val(gst_figure_id);
+		$(this).closest('tr').find('.gst_percentage').val(gst_percentage);
+		forward_total_amount();
+	});
 	
+	add_row();
+	$('.add_row').die().live('click',function(){
+			add_row();
+	}) ;
 	
+	function add_row()
+		{
+			var tr=$('#sample_table tbody tr.main_tr').clone();
+			$('#main_table tbody#main_tbody').append(tr);
+			rename_rows();
+			forward_total_amount();
+		}
+	$('.delete-tr').die().live('click',function() 
+		{
+			$(this).closest('tr').remove();
+			rename_rows();
+			forward_total_amount();
+		});
 	
-	rename_rows();
+	//rename_rows();
 	function rename_rows()
-	{
+	{ 
 		var i=0;
-		$('#main_table tbody#main_tbody tr.main_tr').each(function(){ 
-			$(this).find('td:nth-child(1) input.attrGet').attr({name:'purchase_invoice_rows['+i+'][item_id]',id:'purchase_invoice_rows['+i+'][item_id]'});
+		$('#main_table tbody#main_tbody tr.main_tr').each(function(){
+			$(this).find('td:nth-child(1) select').select2().attr({name:'purchase_invoice_rows['+i+'][item_id]',id:'purchase_invoice_rows['+i+'][item_id]'});
 			$(this).find('.quantity').attr({name:'purchase_invoice_rows['+i+'][quantity]',id:'purchase_invoice_rows['+i+'][quantity]'});
 			$(this).find('.rate').attr({name:'purchase_invoice_rows['+i+'][rate]',id:'purchase_invoice_rows['+i+'][rate]'});
-			$(this).find('.discount').attr({name:'purchase_invoice_rows['+i+'][discount_percentage]',id:'purchase_invoice_rows['+i+'][discount_percentage]'});
-			$(this).find('.discountAmount').attr({name:'purchase_invoice_rows['+i+'][discount_amount]',id:'purchase_invoice_rows['+i+'][discount_amount]'});
-			$(this).find('.pnf').attr({name:'purchase_invoice_rows['+i+'][pnf_percentage]',id:'purchase_invoice_rows['+i+'][pnf_percentage]'});
-			$(this).find('.pnfAmount').attr({name:'purchase_invoice_rows['+i+'][pnf_amount]',id:'purchase_invoice_rows['+i+'][pnf_amount]'});
 			$(this).find('.taxableValue').attr({name:'purchase_invoice_rows['+i+'][taxable_value]',id:'purchase_invoice_rows['+i+'][taxable_value]'}).attr('readonly', true);
 			
-			$(this).find('.item_gst_figure_id').attr({name:'purchase_invoice_rows['+i+'][item_gst_figure_id]',id:'purchase_invoice_rows['+i+'][item_gst_figure_id]'}).attr('readonly', true);
+			$(this).find('.gst_figure_id').attr({name:'purchase_invoice_rows['+i+'][item_gst_figure_id]',id:'purchase_invoice_rows['+i+'][item_gst_figure_id]'}).attr('readonly', true);
 			
-			$(this).find('.gst_figure_id').attr({name:'purchase_invoice_rows['+i+'][gst_percentage]',id:'purchase_invoice_rows['+i+'][gst_percentage]'}).attr('readonly', true);
+			$(this).find('.gst_percentage').attr({name:'purchase_invoice_rows['+i+'][gst_percentage]',id:'purchase_invoice_rows['+i+'][gst_percentage]'}).attr('readonly', true);
+			
 			$(this).find('.gstValue').attr({name:'purchase_invoice_rows['+i+'][gst_value]',id:'purchase_invoice_rows['+i+'][gst_value]'}).attr('readonly', true);
 			$(this).find('.roundOff').attr({name:'purchase_invoice_rows['+i+'][round_off]',id:'purchase_invoice_rows['+i+'][round_off]'});
 			$(this).find('.netAmount').attr({name:'purchase_invoice_rows['+i+'][net_amount]',id:'purchase_invoice_rows['+i+'][net_amount]'});
+
 		i++;
 		});
 	}
 	
-	$('.rate ').die().live('blur',function()
+	$('.rate').die().live('blur',function()
 	{
 		forward_total_amount();
 	});
-	$('.discount').die().live('blur',function()
+	$('.quantity').die().live('blur',function()
 	{
-		var quantity=parseFloat($(this).closest('tr').find('.quantity').val());
-			    var rate=parseFloat($(this).closest('tr').find('.rate').val());
-				var amount=quantity*rate;
-			    var discount=parseFloat($(this).closest('tr').find('.discount').val());
-				if(!discount){discount=0;}
-				//quantity=round(quantity,2);
-				//rate=round(rate,2);
-				//amount=round(amount,2);
-				discount=round(discount,3);
-				var disAmt=0;
-				
-				if(isNaN(discount)){ 
-					disAmt=round(disAmt,2);
-					$(this).closest('tr').find('.discountAmount').val(disAmt);
-					$(this).closest('tr').find('.discount').val(disAmt);
-				}else{
-					var disAmt=(amount*discount)/100;
-					disAmt=round(disAmt,2);
-					$(this).closest('tr').find('.discountAmount').val(disAmt);
-				}
 		forward_total_amount();
 	});
 	
-	$('.pnf').die().live('blur',function()
-	{ 
-		var quantity=parseFloat($(this).closest('tr').find('.quantity').val());
-		var rate=parseFloat($(this).closest('tr').find('.rate').val());
-		var amount=quantity*rate;
-		var pnf=parseFloat($(this).closest('tr').find('.pnf').val());
-				if(!pnf){pnf=0;}
-				if(isNaN(pnf)){ 
-					var pnfAmt=0;
-					pnfAmt=round(pnfAmt,2);
-					$(this).closest('tr').find('.pnfAmount').val(pnfAmt);
-					$(this).closest('tr').find('.pnf').val(pnfAmt);
-				}else{
-					pnf=round(pnf,2);
-					var pnfAmt=(amount*pnf)/100;
-					pnfAmt=round(pnfAmt,2);
-					$(this).closest('tr').find('.pnfAmount').val(pnfAmt);
-					//total_pnf=total_pnf+pnfAmt;
-				}
-		forward_total_amount();
-	});
-	$('.roundOff').die().live('blur',function()
-	{
-		forward_total_amount();
-	});
+	
 	
 	forward_total_amount();
 
@@ -355,133 +354,39 @@ $this->set('title', 'Purchase Invoices');
 			{ 
 			    var quantity=parseFloat($(this).closest('tr').find('.quantity').val());
 			    var rate=parseFloat($(this).closest('tr').find('.rate').val());
-				var amount=quantity*rate;
-			    var discount=parseFloat($(this).closest('tr').find('.discount').val());
-				if(!discount){discount=0;}
-				
-				discount=round(discount,3);
-				var disAmt=0;
-				disAmt=parseFloat($(this).closest('tr').find('.discountAmount').val());
-				var pnfAmt=parseFloat($(this).closest('tr').find('.pnfAmount').val());
-				amountAfterDiscount=amount-disAmt;
-				
-				amount=round(amount,2);
-				disAmt=round(disAmt,2);
-				total_dis+=disAmt;
-				total_pnf+=pnfAmt;
-				taxableAmt=(amount-disAmt)+pnfAmt;
+				var amountAfterDiscount=quantity*rate;
+				 if(isNaN(amountAfterDiscount)){
+					 amountAfterDiscount=0;
+					 }
+				taxableAmt=amountAfterDiscount;
 				//taxableAmt=round(taxableAmt,2);
 				$(this).closest('tr').find('.taxableValue').val(taxableAmt.toFixed(2));
 				total_taxable=total_taxable+taxableAmt;
-				var gstTax=parseFloat($(this).closest('tr').find('.gst_figure_id').val());
-				if(!gstTax){ 
-					var gstAmt=0;
-					$(this).closest('tr').find('.gstValue').val(gstAmt.toFixed(2));
-				}else{
-					//var supplier_state_id=$('option:selected', '.supplier_state_id').attr('state_id');
-					var supplier_state_id=$('.supplier_state_id').val();
-					var state_id=$('.state_id').val();
+				var gstTax=parseFloat($(this).closest('tr').find('.gst_percentage').val());
+					gstTax=gstTax/2;
+					var gstAmt1=(taxableAmt*gstTax)/100;
+					var gstAmt2=(taxableAmt*gstTax)/100;
 					
-					if(supplier_state_id!=state_id)
-					{  
-						var amt2=(taxableAmt*gstTax)/100;
-						amt2=round(amt2,2);
-						$(this).closest('tr').find('.gstValue').val(amt2);
-						var gstamt1=parseFloat($(this).closest('tr').find('.gstValue').val());
-						total_gst=total_gst+gstamt1;
-					}else{  
-						gstTax=gstTax/2;
-						
-						var gstAmt1=(taxableAmt*gstTax)/100;
-						var gstAmt2=(taxableAmt*gstTax)/100;
-						
-						gstAmt1=round(gstAmt1,2);
-						gstAmt2=round(gstAmt2,2);
-						
-						amt2=gstAmt1+gstAmt2;
-						amt2=round(amt2,2);
-						$(this).closest('tr').find('.gstValue').val(amt2);
-						var gstamt11=parseFloat($(this).closest('tr').find('.gstValue').val());
-						total_gst=total_gst+gstamt11;
-						
-					}
-				}
-				
-				var totalAmount=taxableAmt+amt2;
-				
-				 var round_of_amt=parseFloat($(this).closest('tr').find('.roundOff').val());
-				 if(isNaN(round_of_amt)){
-					 var round_of=0;
-					  $(this).closest('tr').find('.round_of').val(round_of.toFixed(2));
-				 }else{
-					  var round_of=round_of_amt;
-				 }
-				 
-				total_round=total_round+round_of;
-				$(this).closest('tr').find('.roundOff').val(round_of.toFixed(2));
-				var totalAmountAfterRound=totalAmount+round_of;
-				total_amt=total_amt+totalAmountAfterRound;
-				$(this).closest('tr').find('.netAmount').val(parseFloat(totalAmountAfterRound).toFixed(2));
+					gstAmt1=round(gstAmt1,2);
+					gstAmt2=round(gstAmt2,2);
+					
+					amt2=gstAmt1+gstAmt2;
+					amt2=round(amt2,2);
+					$(this).closest('tr').find('.gstValue').val(amt2);
+					var gstamt11=parseFloat($(this).closest('tr').find('.gstValue').val());
+					total_gst=total_gst+gstamt11;
+					
+					var totalAmount=taxableAmt+amt2;
+					total_amt=total_amt+totalAmount; 
+					$(this).closest('tr').find('.netAmount').val(parseFloat(totalAmount).toFixed(2));
 			});
-			$('.total_discount_amt').val(total_dis.toFixed(2));
-			$('.total_pnf_amt').val(total_pnf.toFixed(2));
 			$('.total_taxable_value').val(total_taxable.toFixed(2));
 			$('.total_gst_value').val(total_gst.toFixed(2));
-			$('.total_round_amount').val(total_round.toFixed(2));
 			$('.total_amount').val(parseFloat(total_amt).toFixed(2));
 			
-			rename_rows();
+			//rename_rows();
 		}
-		
 	
-	$('.pnfAmount').die().live('blur',function()
-	{
-				var quantity=parseFloat($(this).closest('tr').find('.quantity').val());
-			    var rate=parseFloat($(this).closest('tr').find('.rate').val());
-				var amount=quantity*rate;
-			   var pnfAmt=parseFloat($(this).closest('tr').find('.pnfAmount').val());
-				if(isNaN(pnfAmt)){ 
-					var pnfPer=0;
-					var pnfAmt=0;
-					$(this).closest('tr').find('.pnf').val(pnfPer.toFixed(2));
-					$(this).closest('tr').find('.pnfAmount').val(pnfAmt.toFixed(2));
-					//total_pnf=total_pnf+pnfAmt;
-				}else{
-					var pnfPer=(100*pnfAmt)/amount;
-					pnfPer=round(pnfPer,3);
-					//var pnfAmt=(amount*pnf)/100;
-					$(this).closest('tr').find('.pnf').val(pnfPer);
-					//total_pnf=total_pnf+pnfAmt;
-				}
-				forward_total_amount();
-	});
-	
-	$('.discountAmount').die().live('blur',function()
-	{	
-			var quantity=parseFloat($(this).closest('tr').find('.quantity').val());
-			    var rate=parseFloat($(this).closest('tr').find('.rate').val());
-				var amount=quantity*rate;
-			    var discountAmt=parseFloat($(this).closest('tr').find('.discountAmount').val());
-				
-				//var discountAmt=round(discountAmt,2)
-				if(isNaN(discountAmt)){ 
-					var dis=0;
-					var discountAmt=0;
-					$(this).closest('tr').find('.discount').val(dis.toFixed(2));
-					$(this).closest('tr').find('.discountAmount').val(discountAmt);
-					//total_dis=total_dis+discountAmt;
-				}else{
-					var dis=(100*discountAmt)/amount;
-					dis=round(dis,3);
-					
-					$(this).closest('tr').find('.discount').val(dis);
-					//total_dis=total_dis+discountAmt;
-				}
-				forward_total_amount();
-	});
-	
-
-		
 	function checkValidation() 
 	{  
 		var total_amount  = parseFloat($('.total_amount').val());
@@ -519,5 +424,3 @@ echo $this->Html->scriptBlock($js, array('block' => 'scriptBottom'));
 
 ?>
 
-
-<?php }   ?>

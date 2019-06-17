@@ -45,7 +45,7 @@ if(!empty(count(array_intersect($userPages, $target)))){?>
 	</a>
 	<ul class="sub-menu">
 	 <?php if (in_array("10", $userPages)){?>
-		<li><?php echo $this->Html->link($this->Html->tag('i', '', ['class' => 'fa fa-plus-square']).' Create', '/Grns/PurchaseInvoiceAdd',['escape' => false]); ?></li><?php }?>
+		<li><?php echo $this->Html->link($this->Html->tag('i', '', ['class' => 'fa fa-plus-square']).' Create', '/PurchaseInvoices/Add',['escape' => false]); ?></li><?php }?>
 		 <?php if (in_array("11", $userPages)){?>
 		<li><?php echo $this->Html->link($this->Html->tag('i', '', ['class' => 'fa fa-list-ul']).' List', '/PurchaseInvoices',['escape' => false]); ?></li><?php }?>
 	</ul>
