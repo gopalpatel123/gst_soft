@@ -50,6 +50,7 @@ $this->set('title', 'Create Item');
 									<?php echo $this->Form->control('size_id',['class'=>'form-control input-sm select2me','label'=>false,'empty'=>'-Size-', 'options' => $sizes]); ?>
 								</div>
 							</div>
+							
 						</div>
 						<div class="row">
 							<div class="col-md-6">
@@ -58,7 +59,20 @@ $this->set('title', 'Create Item');
 									<?php echo $this->Form->control('shade_id',['class'=>'form-control input-sm select2me','label'=>false,'empty'=>'-Shade-', 'options' => $shades]); ?>
 								</div>
 							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label>Purchase/Manufacturer </label>
+									<?php 
+									$opt=[];
+									$opt[]=['text'=>'Purchase','value'=>'Purchase'];
+									$opt[]=['text'=>'Manufacturer','value'=>'Manufacturer'];
+									?>
+									<?php echo $this->Form->control('purchase_manufacturer',['class'=>'form-control input-sm select2me','label'=>false, 'options' =>$opt]); ?>
+								</div>
+							</div>
 						</div>
+						
+							
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
