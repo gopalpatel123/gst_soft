@@ -62,13 +62,13 @@ $this->set('title', 'Create Sales Invoice');
 									  $financialyear=$startYear.'-'.$endYear;
 									}
 								$words = explode(" ", $coreVariable['company_name']);
-								$acronym = "";
-								foreach ($words as $w) {
+								$acronym = "NMPU";
+								/* foreach ($words as $w) {
 								$acronym .= $w[0];
 								$acronym .= $w[1];
 								$acronym .= $w[2];
 								$acronym .= $w[3];
-								}
+								} */
 								?>
 								<?= $acronym.'/'.$financialyear.'/'. h(str_pad($voucher_no, 5, '0', STR_PAD_LEFT))?>
 							</div>
