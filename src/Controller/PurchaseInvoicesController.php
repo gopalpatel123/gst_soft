@@ -384,7 +384,7 @@ class PurchaseInvoicesController extends AppController
 					->where(['Items.company_id'=>$company_id])
 					->contain(['FirstGstFigures']);
 		$itemOptions=[];
-		//\pr($items->toArray()); exit;
+		$Voucher_no_last=$Voucher_no_last->voucher_no;
 		foreach($items as $item)
 		{ 
 			$itemOptions[]=['text' =>$item->item_code.' '.$item->name, 'value' => $item->id, 'gst_figure_tax_name'=>@$item->FirstGstFigures->tax_percentage,'gst_figure_id'=>@$item->FirstGstFigures->id];
