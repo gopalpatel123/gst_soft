@@ -41,8 +41,8 @@ $this->set('title', 'Purchase Invoice List');
 							<tr>
 								<th scope="col"><?= __('Sr') ?></th>
 								<th scope="col"><?= $this->Paginator->sort('voucher_no') ?></th>
-								<th scope="col"><?= $this->Paginator->sort('grn_voucher_no') ?></th>
-								<th scope="col"><?= $this->Paginator->sort('supplier_ledger') ?></th>
+							
+								<th scope="col"><?= $this->Paginator->sort('supplier_Name') ?></th>
 								<th scope="col"><?= $this->Paginator->sort('transaction_date') ?></th>
 								<th scope="col" class="actions"><?= __('Actions') ?></th>
 							</tr>
@@ -51,8 +51,8 @@ $this->set('title', 'Purchase Invoice List');
 							<?php foreach ($purchaseInvoices as $purchaseInvoice): ?>
 							<tr>
 								<td><?= h(++$page_no) ?></td>
-								<td><?= h('#'.str_pad($purchaseInvoice->voucher_no, 4, '0', STR_PAD_LEFT)) ?></td>
-								<td><?= h('#'.str_pad($purchaseInvoice->grn->voucher_no, 4, '0', STR_PAD_LEFT)) ?></td>
+								<td><?= h($purchaseInvoice->invoice_no) ?></td>
+								
 								<td><?= h($purchaseInvoice->supplier_ledger->name) ?></td>
 								<td><?= h($purchaseInvoice->transaction_date) ?></td>
 								<td class="actions">

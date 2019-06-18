@@ -25,7 +25,7 @@ class PurchaseInvoicesController extends AppController
 		$financialYear_id=$this->Auth->User('financialYear_id');
 		$search=$this->request->query('search');
         $this->paginate = [
-            'contain' => ['Companies', 'SupplierLedgers','Grns'],
+            'contain' => ['Companies', 'SupplierLedgers'],
 			'limit' => 100
         ];
 		$item_id = $this->request->query('item_id');
@@ -48,13 +48,13 @@ class PurchaseInvoicesController extends AppController
 		'OR' => [
             'PurchaseInvoices.voucher_no' => $search,
             // ...
-            'Grns.voucher_no' => $search,
+            'PurchaseInvoices.voucher_no' => $search,
 			//.....
 			'SupplierLedgers.name LIKE' => '%'.$search.'%',
 			//...
 			'PurchaseInvoices.transaction_date ' => date('Y-m-d',strtotime($search))
-		 ]])->order(['Grns.id'=>'DESC']));
-		//pr($purchaseInvoices); exit;
+		 ]])->group(['PurchaseInvoices.id'])->order(['PurchaseInvoices.id'=>'DESC']));
+		//pr($purchaseInvoices->toArray()); exit;
 		$stockItems=$this->PurchaseInvoices->PurchaseInvoiceRows->Items->find('list')->where(['Items.company_id'=>$company_id]);
         $this->set(compact('purchaseInvoices','search','stockItems','item_id'));
         $this->set('_serialize', ['purchaseInvoices']);
@@ -129,7 +129,7 @@ class PurchaseInvoicesController extends AppController
 		$stateDetails=$this->Auth->User('session_company');
 		$state_id=$stateDetails->state_id;
         $purchaseInvoice = $this->PurchaseInvoices->get($id, [
-            'contain' => ['Companies'=>['States'], 'Grns','SupplierLedgers'=>['Suppliers'], 'PurchaseInvoiceRows'=>['Items']]
+            'contain' => ['Companies'=>['States'], 'SupplierLedgers'=>['Suppliers'], 'PurchaseInvoiceRows'=>['Items']]
         ]);
 		$supplier_state_id=$purchaseInvoice->supplier_ledger->supplier->state_id;
 		//pr($purchaseInvoice->toArray());
@@ -592,9 +592,18 @@ class PurchaseInvoicesController extends AppController
 			$Accountledgers = $this->PurchaseInvoices->Grns->GrnRows->Ledgers->find('list')->where(['Ledgers.accounting_group_id IN' =>$account_ids]);
         }
 		
+			$items = $this->PurchaseInvoices->Grns->GrnRows->Items->find()
+					->where(['Items.company_id'=>$company_id])
+					->contain(['FirstGstFigures']);
+		$itemOptions=[];
+	
+		foreach($items as $item)
+		{ 
+			$itemOptions[]=['text' =>$item->item_code.' '.$item->name, 'value' => $item->id, 'gst_figure_tax_name'=>@$item->FirstGstFigures->tax_percentage,'gst_figure_id'=>@$item->FirstGstFigures->id];
+		}
         $companies = $this->PurchaseInvoices->Companies->find('list', ['limit' => 200]);
         $supplierLedgers = $this->PurchaseInvoices->SupplierLedgers->find('list', ['limit' => 200]);
-        $this->set(compact('purchaseInvoice', 'companies', 'supplierLedgers', 'companies', 'partyOptions','state_id','Accountledgers','supplier_state_id'));
+        $this->set(compact('purchaseInvoice', 'companies', 'supplierLedgers', 'companies', 'partyOptions','state_id','Accountledgers','supplier_state_id','itemOptions'));
         $this->set('_serialize', ['purchaseInvoice']);
     }
 

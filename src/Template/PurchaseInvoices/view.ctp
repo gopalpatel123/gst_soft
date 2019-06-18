@@ -54,22 +54,12 @@ $this->set('title', 'Purchase Invoice View');
 			<tr>
 				<td width="50%" valign="top" align="left">
 				<table>
-					 <tbody><tr>
-                        <td>GRN No </td>
-                        <td width="20" align="center">:</td>
-                        <td><?php echo '#'.str_pad($purchaseInvoice->grn->voucher_no, 4, '0', STR_PAD_LEFT);?></td>
-						</tr>
-					<tr>
-						<td>Voucher No</td>
+					 <tbody>
+						<td>Invoice  No</td>
 						<td width="20" align="center">:</td>
-						<td><?php echo '#'.str_pad($purchaseInvoice->voucher_no, 4, '0', STR_PAD_LEFT);?>
+						<td><?php echo ($purchaseInvoice->invoice_no);?>
 					</tr>
-					<tr>
-						<td>Reference No </td>
-                        <td width="20" align="center">:</td>
-                        <td><?php echo $purchaseInvoice->grn->reference_no;?></td>
-					</tr>
-				
+					
 				</tbody></table>
 				</td>
 				<td width="50%" valign="top" align="right">
@@ -100,17 +90,15 @@ $this->set('title', 'Purchase Invoice View');
 					<td rowspan="2"><b>Item</b></td>
 					<td rowspan="2"><b>Qty</b></td>
 					<td rowspan="2"><b>Rate</b></td>
-					<td colspan="2"><b>Discount</b></td>
-					<td colspan="2"><b>Pnf</b></td>
+					
+					
 					<td rowspan="2"><b>Taxable Value</b></td>
 					<td colspan="2"><b><?php if($supplier_state_id == $state_id){ echo 'GST'; } else{ echo 'IGST';} ?></b></td>
 					<td rowspan="2"><b>Net Amount</b></td>
 				</tr>
 				<tr>
-					<th><div align="center">%</div></th>
-					<th><div align="center">Rs</div></th>
-					<th><div align="center">%</div></th>
-					<th><div align="center">Rs</div></th>
+					
+					
 					<th><div align="center">%</div></th>
 					<th><div align="center">Rs</div></th>
 					
@@ -136,24 +124,8 @@ $this->set('title', 'Purchase Invoice View');
 					<td width="10%" class="rightAligntextClass">
 						<?php echo $purchaseInvoiceRows->rate; ?>
 					</td>
-					<td width="5%" class="rightAligntextClass">
-						
-						<?php if(!empty($purchaseInvoiceRows->discount_percentage)) { echo $purchaseInvoiceRows->discount_percentage; } else { echo ' '; }?>
-					</td>
-					<td width="5%" class="rightAligntextClass">
-						<?php  if(!empty($purchaseInvoiceRows->discount_amount)) { echo $purchaseInvoiceRows->discount_amount;	} else { echo ' ';}
-						$total_discount+=$purchaseInvoiceRows->discount_amount;
-						?>
-						 
-					</td>
-					<td width="5%" class="rightAligntextClass">
-						<?php if($purchaseInvoiceRows->pnf_percentage>0) { echo $purchaseInvoiceRows->pnf_percentage; } else { echo ' '; }?>
-					</td>
-					<td width="5%" class="rightAligntextClass">
-						<?php if(!empty($purchaseInvoiceRows->pnf_amount)) { echo $purchaseInvoiceRows->pnf_amount; } else { echo ' '; }
-						$total_pnf+=$purchaseInvoiceRows->pnf_amount;
-						?>
-					</td>
+					
+				
 					<td width="10%" class="rightAligntextClass">
 						<?php echo $purchaseInvoiceRows->taxable_value; 
 						$total_taxable_value+=$purchaseInvoiceRows->taxable_value;
@@ -178,11 +150,10 @@ $this->set('title', 'Purchase Invoice View');
 			<?php $i++; } ?>
 				<tr>
 				<td colspan="4" class="rightAligntextClass"><b>Total</b></td>
-				<td colspan="2" class="rightAligntextClass"><b><?php if($total_discount>0) { echo $total_discount; } ?></b></td>
-				<td colspan="2" class="rightAligntextClass"><b><?php if($total_pnf>0) { echo $total_pnf; }?></b></td>
-				<td colspan="1" class="rightAligntextClass"><b><?php  echo $total_taxable_value; ?></b></td>
+				
+				<td  class="rightAligntextClass"><b><?php  echo $total_taxable_value; ?></b></td>
 				<td colspan="2" class="rightAligntextClass"><b><?php if($total_gst>0) { echo $total_gst; } ?></b></td>
-				<td colspan="1" class="rightAligntextClass"><b><?php echo $total_net_amount; ?></b></td>
+				<td  class="rightAligntextClass"><b><?php echo $total_net_amount; ?></b></td>
 				</tr>
 			</tbody>
 			<tfoot>
