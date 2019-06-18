@@ -179,22 +179,26 @@ class PurchaseInvoicesController extends AppController
         if ($this->request->is('post')) {
             $purchaseInvoice = $this->PurchaseInvoices->patchEntity($purchaseInvoice, $this->request->getData());
 			$purchaseInvoice->transaction_date = date("Y-m-d",strtotime($this->request->getData()['transaction_date']));
-			$due_days=$this->request->data['due_days']; 
+			//$due_days=$this->request->data['due_days']; 
 			$Voucher_no = $this->PurchaseInvoices->find()->select(['voucher_no'])->where(['PurchaseInvoices.company_id'=>$company_id,'PurchaseInvoices.financial_year_id'=>$financialYear_id])->order(['voucher_no' => 'DESC'])->first();
 			if($Voucher_no)
 			{
-				$purchaseInvoice->voucher_no = $Voucher_no->voucher_no+1;
+				$Voucher_no_last1=$purchaseInvoice->voucher_no = $Voucher_no->voucher_no+1;
 			}
 			else
 			{
-				$purchaseInvoice->voucher_no = 1;
+				$Voucher_no_last1=$purchaseInvoice->voucher_no = 1;
 			} 
+			
 			$purchaseInvoice->financial_year_id =$financialYear_id;
 			$purchaseInvoice->company_id = $company_id;
-			$purchaseInvoice->grn_id = $Grns->id;
-                        $purchaseInvoice->purchase_ledger_id=$purchaseInvoice->purchase_ledger_id;
-                        $purchaseInvoice->supplier_ledger_id=$Grns->supplier_ledger_id;
-						
+			
+			$SupplierLedgers=$this->PurchaseInvoices->AccountingEntries->Ledgers->find()->where(['Ledgers.id'=>$purchaseInvoice->supplier_ledger_id])->contain(['Suppliers'])->first();		
+			if($SupplierLedgers->supplier->state_id==46){
+				$purchaseInvoice->is_interstate=0;
+			}else{
+				$purchaseInvoice->is_interstate=1;
+			}
 			//pr($purchaseInvoice); exit;
             if ($this->PurchaseInvoices->save($purchaseInvoice)) { 
 				
@@ -243,10 +247,9 @@ class PurchaseInvoicesController extends AppController
 				if($purchaseInvoice->total_round_amount != 0){
 					$this->PurchaseInvoices->AccountingEntries->save($AccountingEntrie);
 				}
-				
-				if($purchaseInvoice->is_interstate=='0'){
-					foreach($purchaseInvoice->purchase_invoice_rows as $purchase_invoice_row)
-					   { 
+				foreach($purchaseInvoice->purchase_invoice_rows as $purchase_invoice_row)
+				{ 
+					if($purchaseInvoice->is_interstate=='0'){
 					   $gstAmtdata=$purchase_invoice_row->gst_value/2;
 					   $gstAmtInsert=round($gstAmtdata,2);
 					   
@@ -273,10 +276,7 @@ class PurchaseInvoicesController extends AppController
 						$AccountingEntrieSGST->company_id=$company_id;
 						$AccountingEntrieSGST->purchase_invoice_id=$purchaseInvoice->id;
 						$this->PurchaseInvoices->AccountingEntries->save($AccountingEntrieSGST);
-					   }
-				}else{
-					foreach($purchaseInvoice->purchase_invoice_rows as $purchase_invoice_row)
-					   {
+					   }else{
 						   //Accounting Entries for IGST//
 						$AccountingEntrieIGST = $this->PurchaseInvoices->AccountingEntries->newEntity(); 
 						$gstLedgerSGST = $this->PurchaseInvoices->PurchaseInvoiceRows->Ledgers->find()
@@ -288,7 +288,21 @@ class PurchaseInvoicesController extends AppController
 						$AccountingEntrieIGST->company_id=$company_id;
 						$AccountingEntrieIGST->purchase_invoice_id=$purchaseInvoice->id;
 						$this->PurchaseInvoices->AccountingEntries->save($AccountingEntrieIGST);
-					   }
+						}
+					 //Stock Entry
+				 
+					$item_ledger = $this->PurchaseInvoices->Grns->ItemLedgers->newEntity();
+					$item_ledger->transaction_date = $purchaseInvoice->transaction_date;
+					$item_ledger->purchase_invoice_id = $purchaseInvoice->id;
+					$item_ledger->purchase_invoice_row_id = $purchase_invoice_row->id;
+					$item_ledger->item_id = $purchase_invoice_row->item_id;
+					$item_ledger->quantity = $purchase_invoice_row->quantity;
+					$item_ledger->rate = $purchase_invoice_row->rate;
+					$item_ledger->sale_rate = 0;
+					$item_ledger->company_id  =$company_id;
+					$item_ledger->status ='in';
+					$item_ledger->amount=$purchase_invoice_row->quantity*$purchase_invoice_row->rate;
+					$this->PurchaseInvoices->Grns->ItemLedgers->save($item_ledger);
 				}
 				//Refrence Details For Party//
 				
@@ -303,10 +317,11 @@ class PurchaseInvoicesController extends AppController
 					$ReferenceDetail->type='New Ref';
 					$ReferenceDetail->ref_name='PI'.$purchaseInvoice->voucher_no;
 					$ReferenceDetail->purchase_invoice_id=$purchaseInvoice->id;
-					$ReferenceDetail->due_days = $due_days;
+					//$ReferenceDetail->due_days = $due_days;
 					$this->PurchaseInvoices->ReferenceDetails->save($ReferenceDetail);
 				}
 				  
+				
 				
                 $this->Flash->success(__('The purchase invoice has been saved.'));
 

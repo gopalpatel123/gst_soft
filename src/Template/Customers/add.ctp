@@ -45,7 +45,7 @@ $this->set('title', 'Create Customer');
 									<label>Mobile </label>
 									<?php echo $this->Form->control('mobile',['class'=>'form-control input-sm','placeholder'=>'Mobile no','label'=>false,'autofocus','maxlength'=>10]); ?>
 								</div>
-								<div class="col-md-8" style="padding-left: 0px;padding-right:0px;">
+								<!--<div class="col-md-8" style="padding-left: 0px;padding-right:0px;">
 								<div class="form-group " >
 									<label>Opening balance</label>
 									<?php echo $this->Form->control('opening_balance_value',['id'=>'opening_balance_value','class'=>'rightAligntextClass form-control input-sm balance','label'=>false,'placeholder'=>'Opening Balance']);
@@ -57,7 +57,7 @@ $this->set('title', 'Create Customer');
 									<?php $option =[['value'=>'Dr','text'=>'Dr'],['value'=>'Cr','text'=>'Cr']];
 										echo $this->Form->control('debit_credit',['id'=>'cr_dr','class'=>'form-control input-sm cr_dr','label'=>false, 'options' => $option]);
 										?>
-								</div>
+								</div>-->
 								<div class="form-group" style="padding-left: 0px;padding-right:0;">
 										<label>Bill to Bill Accounting </label>
 										<?php 
@@ -92,10 +92,10 @@ $this->set('title', 'Create Customer');
 									<label>Email</label>
 									<?php echo $this->Form->control('email',['class'=>'form-control input-sm','label'=>false,'placeholder'=>'example@domain.com']); ?>
 								</div>
-								<div class="form-group">
+								<!--<div class="form-group">
 									<label>Address</label>
 									<?php echo $this->Form->control('address',['class'=>'form-control input-sm','label'=>false,'placeholder'=>'Address']); ?>
-								</div>
+								</div>-->
 								
 							</div>
 						</div>
@@ -110,7 +110,7 @@ $this->set('title', 'Create Customer');
 								</div>
 						</div>
 						<br>
-						
+						<label><b> Customer Address</b></label>
 						<div class="row">
 							<div class="table-responsive">
 								<table id="main_table" class="table table-condensed table-bordered" style="margin-bottom: 4px;" width="100%">

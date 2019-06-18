@@ -10,6 +10,7 @@ $this->set('title', 'Create Supplier');
 }
 </style>
 <div class="row">
+	<div class="col-md-2"></div>
 	<div class="col-md-8">
 		<div class="portlet light ">
 			<div class="portlet-title">
@@ -44,7 +45,7 @@ $this->set('title', 'Create Supplier');
 									<label>Mobile </label>
 									<?php echo $this->Form->control('mobile',['class'=>'form-control input-sm','placeholder'=>'Mobile no','label'=>false,'autofocus','maxlength'=>10]); ?>
 								</div>
-								<div class="col-md-8" style="padding-left: 0px;padding-right: 0px;">
+								<!--<div class="col-md-8" style="padding-left: 0px;padding-right: 0px;">
 								<div class="form-group" >
 									<label>Opening balance value</label>
 									<?php echo $this->Form->control('opening_balance_value',['id'=>'opening_balance_value','class'=>'rightAligntextClass form-control input-sm balance','label'=>false,'placeholder'=>'Opening Balance']);
@@ -56,17 +57,17 @@ $this->set('title', 'Create Supplier');
 								<?php $option =[['value'=>'Dr','text'=>'Dr'],['value'=>'Cr','text'=>'Cr']];
 									echo $this->Form->control('debit_credit',['id'=>'cr_dr','class'=>'form-control input-sm cr_dr','label'=>false, 'options' => $option,'value'=>'creditor']);
 									?>
-								</div>
+								</div>-->
 								<div class="form-group">
 									<label>Bill to Bill Accounting </label>
 									<?php 
 									$option =[['value'=>'yes','text'=>'yes'],['value'=>'no','text'=>'no']];
 									echo $this->Form->control('bill_to_bill_accounting',['class'=>'form-control input-sm bill_to_bill_accounting','label'=>false, 'options' => $option,'required'=>'required','value'=>'no']); ?>
 								</div>
-								<div class="form-group default_credit_days_div" >
+								<!--<div class="form-group default_credit_days_div" >
 								<label>Default Credit Days</label>
 									<?php echo $this->Form->control('default_credit_days',['class'=>'form-control input-sm default_credit_days','placeholder'=>'Default Credit Days','label'=>false,'value'=>0]); ?>
-								</div>
+								</div>-->
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
