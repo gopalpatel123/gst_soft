@@ -22,7 +22,7 @@ $this->set('title', 'Purchase Invoices');
 					</div><br><br>
 					
 					<div class="row">
-						<div class="col-md-3">
+						<div class="col-md-4">
 							<div class="form-group">
 								<label><b>Purchase Invoice Voucher No :</b></label>&nbsp;&nbsp;<br>
 								
@@ -57,7 +57,7 @@ $this->set('title', 'Purchase Invoices');
 							</div>
 						</div>
 						
-						<div class="col-md-3">
+						<div class="col-md-4">
 							<div class="form-group">
 								<label>Transaction Date <span class="required">*</span></label>
 								
@@ -73,15 +73,15 @@ $this->set('title', 'Purchase Invoices');
 									echo $this->Form->control('supplier_ledger_id',['class'=>'form-control input-sm supplier_ledger select2me','label'=>false, 'options' => $partyOptions,'required'=>'required']);
 								?>
 						</div>
-						<div class="col-md-3">
-								<label>Purchase Account</label>
-								<?php echo $this->Form->control('purchase_ledger_id',['class'=>'form-control input-sm  select2me','label'=>false, 'options' => $Accountledgers,'required'=>'required']);
+						<div class="col-md-1">
+								<!--<label>Purchase Account</label>-->
+								<?php echo $this->Form->control('purchase_ledger_id',['class'=>'form-control input-sm  select2me','label'=>false, 'options' => $Accountledgers,'type'=>'hidden','required'=>'required']);
 								?>
 						</div>
 					</div><br>
 					
 					<div class="row">
-						<div class="col-md-3">
+						<div class="col-md-4">
 							<div class="form-group">
 								<label>Supplier Invoice No. </label>
 								
