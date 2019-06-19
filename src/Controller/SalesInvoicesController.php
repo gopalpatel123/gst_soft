@@ -610,39 +610,13 @@ class SalesInvoicesController extends AppController
 		
 		$items = $this->SalesInvoices->SalesInvoiceRows->Items->find()
 					->where(['Items.company_id'=>$company_id])
-					->contain(['ItemLedgers'=>function($query) use($company_id,$location_id){
-						$totalInCase = $query->newExpr()
-									->addCase(
-										$query->newExpr()->add(['status' => 'in']),
-										$query->newExpr()->add(['quantity']),
-										'integer'
-									);
-						$totalOutCase = $query->newExpr()
-									->addCase(
-										$query->newExpr()->add(['status' => 'out']),
-										$query->newExpr()->add(['quantity']),
-										'integer'
-									);
-								$query->select([
-									'total_in' => $query->func()->sum($totalInCase),
-									'total_out' => $query->func()->sum($totalOutCase),'item_id'
-								])
-								->group('ItemLedgers.item_id')
-								->autoFields(true);
-						
-						return $query->where(['ItemLedgers.company_id' => $company_id, 'ItemLedgers.location_id' => $location_id]);
-					},'FirstGstFigures', 'SecondGstFigures', 'Units']);
-					
+					->contain(['FirstGstFigures', 'Units','Shades']);
+				//pr($items->toArray()); exit;
 				$itemOptions=[];
 			foreach($items as $d)
 			{
-				foreach($d->item_ledgers as $dd)
-				{ //
-					if($dd->total_in > $dd->total_out)
-					{ 
-					$itemOptions[]=['text'=>$d->item_code.' '.$d->name, 'value'=>$dd->item_id,'item_code'=>$d->item_code, 'first_gst_figure_id'=>$d->first_gst_figure_id, 'gst_amount'=>floatval($d->gst_amount), 'sales_rate'=>$d->sales_rate, 'second_gst_figure_id'=>$d->second_gst_figure_id, 'FirstGstFigure'=>$d->FirstGstFigures->tax_percentage, 'SecondGstFigure'=>$d->SecondGstFigures->tax_percentage];
-					}
-				}
+				$itemOptions[]=['text'=>$d->name.'('.$d->shade->name.')', 'value'=>$d->id,'first_gst_figure_id'=>$d->first_gst_figure_id, 'sales_rate'=>$d->sales_rate, 'FirstGstFigure'=>$d->FirstGstFigures->tax_percentage];
+				
 			}
 		
         $partyParentGroups = $this->SalesInvoices->SalesInvoiceRows->Ledgers->AccountingGroups->find()

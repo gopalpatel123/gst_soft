@@ -119,21 +119,21 @@ $this->set('title', 'Create Sales Invoice');
 					<br>-->
 					<div class="row">
 						<div class="col-md-3">
-								<label>Reverse Charge</label>
-								<?php $option =[['value'=>'Yes','text'=>'Yes'],['value'=>'No','text'=>'No']];?>
-								<?php echo $this->Form->control('reverse_charge',['class'=>'form-control input-sm','label'=>false, 'options' => $option]); ?>
+								<label>Payment Mode</label>
+								<?php $option =[['value'=>'Cash','text'=>'Cash'],['value'=>'Cheque','text'=>'Cheque']];?>
+								<?php echo $this->Form->control('payment_mode',['class'=>'form-control input-sm','label'=>false, 'options' => $option]); ?>
 						</div>
 						<div class="col-md-3">
 							<div class="form-group">
 								<label>Vehicle Number</label>
-								<?php echo $this->Form->control('vehicle_number',['class'=>'form-control input-sm ','label'=>false]);
+								<?php echo $this->Form->control('vehicle_number',['class'=>'form-control input-sm ','label'=>false,'type'=>'text']);
 								?>
 							</div>
 						</div> 
 						<div class="col-md-3">
 							<div class="form-group">
 								<label>Transport Mode</label>
-								<?php echo $this->Form->control('transport_mode',['class'=>'form-control input-sm ','label'=>false]);
+								<?php echo $this->Form->control('transport_mode',['class'=>'form-control input-sm ','label'=>false,'type'=>'text']);
 								?>
 							</div>
 						</div> 
@@ -153,10 +153,11 @@ $this->set('title', 'Create Sales Invoice');
 								<thead>
 								<tr align="center">
 									<td width="20%"><label>Item<label></td>
+									<td><label>Kind Of Pkg.<label></td>
+									<td><label>Weight per enum.<label></td>
 									<td><label>Qty<label></td>
 									<td><label>Rate<label></td>
-									<td><label>Discount(%)<label></td>
-									<td><label>Discount(Amt.)<label></td>
+									
 									<td><label>Taxable Value<label></td>
 									<td><label id="gstDisplay">GST<label></td>
 									<td><label>Net Amount<label></td>
@@ -312,6 +313,12 @@ $this->set('title', 'Create Sales Invoice');
 				<input type="hidden" name="discountvalue" class="discountvalue calculation" value="">
 				<?php echo $this->Form->input('item_id', ['empty'=>'-Item Name-', 'options'=>$itemOptions,'label' => false,'class' =>'form-control input-medium input-sm attrGet bottomSelect','required'=>'required']); ?>
 				<span class="itemQty" style="font-size:10px;"></span>
+			</td>
+			<td>
+				<?php echo $this->Form->input('discount_percentage', ['label' => false,'class' => 'form-control input-sm discount discalculation numberOnly rightAligntextClass','placeholder'=>'Dis.','value'=>0]); ?>	
+			</td>
+			<td>
+				<?php echo $this->Form->input('discount', ['label' => false,'class' => 'form-control input-sm calculation dis_amount numberOnly rightAligntextClass','placeholder'=>'Dis.','value'=>0]); ?>	
 			</td>			
 			<td>
 				<?php echo $this->Form->input('quantity', ['label' => false,'class' => 'form-control input-sm calculation quantity numberOnly rightAligntextClass','id'=>'check','required'=>'required','placeholder'=>'Quantity', 'value'=>1]); ?>
@@ -319,12 +326,7 @@ $this->set('title', 'Create Sales Invoice');
 			<td>
 				<?php echo $this->Form->input('rate', ['label' => false,'class' => 'form-control input-sm calculation rate rightAligntextClass','required'=>'required','placeholder'=>'Rate', 'readonly'=>'readonly', 'tabindex'=>'-1']); ?>
 			</td>
-			<td>
-				<?php echo $this->Form->input('discount_percentage', ['label' => false,'class' => 'form-control input-sm discount discalculation numberOnly rightAligntextClass','placeholder'=>'Dis.','value'=>0]); ?>	
-			</td>
-			<td>
-				<?php echo $this->Form->input('discount', ['label' => false,'class' => 'form-control input-sm calculation dis_amount numberOnly rightAligntextClass','placeholder'=>'Dis.','value'=>0]); ?>	
-			</td>
+			
 			
 			<td>
 				<?php echo $this->Form->input('taxable_value', ['label' => false,'class' => 'form-control input-sm gstAmount reverse_total_amount rightAligntextClass','required'=>'required','placeholder'=>'Amount', 'readonly'=>'readonly', 'tabindex'=>'-1']); ?>
@@ -389,7 +391,7 @@ $this->set('title', 'Create Sales Invoice');
 				var type=fetch.type;
 				var mainStock=fetch.mainStock;
 				itemQ.find('.itemQty').html(text);
-				itemQ.find('.totStock').val(mainStock);
+				//itemQ.find('.totStock').val(mainStock);
 				if(type=='true')
 				{
 					itemQ.find('.outStock').val(1);

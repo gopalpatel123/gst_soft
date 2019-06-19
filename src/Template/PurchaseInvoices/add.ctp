@@ -48,11 +48,11 @@ $this->set('title', 'Purchase Invoices');
 								$acronym = "NMPU";
 								
 								?>
-								<?= $acronym.'/'.$financialyear.'/'. h(str_pad($Voucher_no_last+1, 5, '0', STR_PAD_LEFT))?>
+								<?= $acronym.'/'.$financialyear.'/'. h(str_pad($Voucher_no_last, 5, '0', STR_PAD_LEFT))?>
 								
-								<?php $voucher_no_in=$acronym.'/'.$financialyear.'/'. h(str_pad($Voucher_no_last+1, 5, '0', STR_PAD_LEFT)); ?>
+								<?php $voucher_no_in=$acronym.'/'.$financialyear.'/'. h(str_pad($Voucher_no_last, 5, '0', STR_PAD_LEFT)); ?>
 								<input type="hidden" name="invoice_no" class="state_id" value="<?php echo $voucher_no_in;?>">
-								<input type="hidden" name="voucher_no" class="state_id" value="<?php echo $Voucher_no_last+1; ?>">
+								<input type="hidden" name="voucher_no" class="state_id" value="<?php echo $Voucher_no_last; ?>">
 								
 							</div>
 						</div>
