@@ -131,6 +131,7 @@ class PurchaseInvoicesController extends AppController
         $purchaseInvoice = $this->PurchaseInvoices->get($id, [
             'contain' => ['Companies'=>['States'], 'SupplierLedgers'=>['Suppliers'], 'PurchaseInvoiceRows'=>['Items']]
         ]);
+		
 		$supplier_state_id=$purchaseInvoice->supplier_ledger->supplier->state_id;
 		//pr($purchaseInvoice->toArray());
 		//exit;
@@ -178,9 +179,11 @@ class PurchaseInvoicesController extends AppController
         $purchaseInvoice = $this->PurchaseInvoices->newEntity();
         if ($this->request->is('post')) {
             $purchaseInvoice = $this->PurchaseInvoices->patchEntity($purchaseInvoice, $this->request->getData());
+			//pr($purchaseInvoice);exit;
 			$purchaseInvoice->transaction_date = date("Y-m-d",strtotime($this->request->getData()['transaction_date']));
 			//$due_days=$this->request->data['due_days']; 
 			$Voucher_no = $this->PurchaseInvoices->find()->select(['voucher_no'])->where(['PurchaseInvoices.company_id'=>$company_id,'PurchaseInvoices.financial_year_id'=>$financialYear_id])->order(['voucher_no' => 'DESC'])->first();
+			//pr($Voucher_no);exit;
 			if($Voucher_no)
 			{
 				$Voucher_no_last1=$purchaseInvoice->voucher_no = $Voucher_no->voucher_no+1;
@@ -189,7 +192,7 @@ class PurchaseInvoicesController extends AppController
 			{
 				$Voucher_no_last1=$purchaseInvoice->voucher_no = 1;
 			} 
-			
+			//pr($Voucher_no_last1);exit;
 			$purchaseInvoice->financial_year_id =$financialYear_id;
 			$purchaseInvoice->company_id = $company_id;
 			
@@ -199,18 +202,14 @@ class PurchaseInvoicesController extends AppController
 			}else{
 				$purchaseInvoice->is_interstate=1;
 			}
-			//pr($purchaseInvoice); exit;
+		//	pr($purchaseInvoice); exit;
             if ($this->PurchaseInvoices->save($purchaseInvoice)) { 
 				
-				$query = $this->PurchaseInvoices->Grns->query();
-				$query->update()
-					->set(['status'=>'Invoice Booked'])
-					->where(['id' => $Grns->id])
-					->execute();
 				
 				//Accounting Entries for Purchase account//
 				$AccountingEntrie = $this->PurchaseInvoices->AccountingEntries->newEntity(); 
 				$AccountingEntrie->ledger_id=$purchaseInvoice->purchase_ledger_id;
+			
 				$AccountingEntrie->debit=$purchaseInvoice->total_taxable_value;
 				$AccountingEntrie->credit=0;
 				$AccountingEntrie->transaction_date=$purchaseInvoice->transaction_date;
@@ -252,7 +251,7 @@ class PurchaseInvoicesController extends AppController
 					if($purchaseInvoice->is_interstate=='0'){
 					   $gstAmtdata=$purchase_invoice_row->gst_value/2;
 					   $gstAmtInsert=round($gstAmtdata,2);
-					   
+					   pr($gstAmtInsert);exit;
 					   //Accounting Entries for GST//
 					  $AccountingEntrieCGST = $this->PurchaseInvoices->AccountingEntries->newEntity(); 
 						$gstLedgerCGST = $this->PurchaseInvoices->PurchaseInvoiceRows->Ledgers->find()
@@ -420,13 +419,15 @@ class PurchaseInvoicesController extends AppController
         ]);
 		
         if ($this->request->is(['patch', 'post', 'put'])) {
+		
             $purchaseInvoice = $this->PurchaseInvoices->patchEntity($purchaseInvoice, $this->request->getData());
+				//pr($purchaseInvoice);exit;
 			$purchaseInvoice->transaction_date = date("Y-m-d",strtotime($this->request->getData()['transaction_date']));
 			$purchaseInvoice->company_id = $company_id;
 			
             if ($this->PurchaseInvoices->save($purchaseInvoice)) {
 				
-				//$this->PurchaseInvoices->ItemLedgers->deleteAll(['ItemLedgers.purchase_invoice_id' => $purchaseInvoice->id]);
+				$this->PurchaseInvoices->ItemLedgers->deleteAll(['ItemLedgers.purchase_invoice_id' =>$purchaseInvoice->id]);
 				$this->PurchaseInvoices->AccountingEntries->deleteAll(['AccountingEntries.purchase_invoice_id' => $purchaseInvoice->id]);
 				$this->PurchaseInvoices->ReferenceDetails->deleteAll(['ReferenceDetails.purchase_invoice_id' => $purchaseInvoice->id]);
 				

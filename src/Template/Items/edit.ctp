@@ -24,26 +24,29 @@ $this->set('title', 'Edit Item');
 						</div>
 						
 						<div class="row">
-							<div class="col-md-6">
+							<!--<div class="col-md-6">
 								<div class="form-group">
 									<label>Stock Group </label>
 									<?php echo $this->Form->control('stock_group_id',['class'=>'form-control input-sm select2me','label'=>false,'empty'=>'-Primary-', 'options' => $stockGroups]); ?>
 								</div>
 							</div>
+							-->
 							<div class="col-md-6">
 								<div class="form-group">
 									<label>HSN Code </label>
 									<?php echo $this->Form->control('hsn_code',['class'=>'form-control input-sm','label'=>false,'placeholder'=>'HSN Code']); ?>
 								</div>
 							</div>
-						</div>
-						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
 									<label>Unit <span class="required">*</span></label>
 									<?php echo $this->Form->control('unit_id',['class'=>'form-control input-sm select2me','label'=>false,'empty'=>'-Unit-', 'options' => $units,'required'=>'required']); ?>
 								</div>
 							</div>
+						</div>
+						
+						<div class="row">
+							
 						<!--	<div class="col-md-6">
 								<div class="form-group">
 									<label>Size </label>
@@ -55,6 +58,12 @@ $this->set('title', 'Edit Item');
 								<div class="form-group">
 									<label>Shade </label>
 									<?php echo $this->Form->control('shade_id',['class'=>'form-control input-sm select2me','label'=>false,'empty'=>'-Shade-', 'options' => $shades]); ?>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label>Sales Rate </label>
+									<?php echo $this->Form->control('sales_rate',['class'=>'rightAligntextClass form-control input-sm','label'=>false,'placeholder'=>'Sales Rate','required'=>'required']); ?>
 								</div>
 							</div>
 						</div>
@@ -78,6 +87,12 @@ $this->set('title', 'Edit Item');
 									<?php echo $this->Form->control('purchase_manufacturer',['class'=>'form-control input-sm select2me','label'=>false, 'options' =>$opt,'check' =>$checked1 ]); ?>
 								</div>
 							</div>
+								<div class="col-md-6">
+								<div class="form-group">
+									<label >Gst Rate  </label>
+									<?php echo $this->Form->control('first_gst_figure_id',['class'=>'form-control input-sm select2me','label'=>false,'empty'=>'-GST Figure-', 'options' => $gstFigures,'required'=>'required']); ?>
+								</div>
+							</div>
 						</div>
 					
 						<div class="row">
@@ -90,7 +105,7 @@ $this->set('title', 'Edit Item');
 						</div>
 					</div>
 					<div class="col-md-6">
-						<span class="caption-subject bold " style="float:center;">Opening Balance</span><hr style="margin: 6px 0;">
+						<!--<span class="caption-subject bold " style="float:center;">Opening Balance</span><hr style="margin: 6px 0;">-->
 						<div class="row">
 							<!--<div class="col-md-4">
 								<div class="form-group">
@@ -120,14 +135,9 @@ $this->set('title', 'Edit Item');
 								</div>
 							</div>
 					-->
-							<div class="col-md-4">
-								<div class="form-group">
-									<label>Sales Rate </label>
-									<?php echo $this->Form->control('sales_rate',['class'=>'rightAligntextClass form-control input-sm','label'=>false,'placeholder'=>'Sales Rate','required'=>'required']); ?>
-								</div>
-							</div>
+							
 						</div>
-						<span class="caption-subject bold " style="float:center;">Gst Rate</span><hr style="margin: 6px 0;">
+						<!--<span class="caption-subject bold " style="float:center;">Gst Rate</span><hr style="margin: 6px 0;">
 						<div class="row" >
 							<div class="col-md-3">
 								<div class="form-group">
@@ -173,7 +183,7 @@ $this->set('title', 'Edit Item');
 									<?php echo $this->Form->control('second_gst_figure_id',['class'=>'form-control input-sm ','label'=>false,'empty'=>'-GST Figure-', 'options' => $gstFigures]); ?>
 								</div>
 							</div>
-						</div>
+						</div>-->
 						<!--<span class="caption-subject bold " style="float:center;">Barcode</span><hr style="margin: 6px 0;">
 						<div class="row" >
 							<div class="col-md-6">

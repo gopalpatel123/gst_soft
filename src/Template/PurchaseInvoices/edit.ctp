@@ -26,13 +26,13 @@ if($supplier_state_id== $state_id){
 					</div><br><br>
 					
 					<div class="row">
-						<div class="col-md-3">
+						<div class="col-md-4">
 							<div class="form-group">
 								<label><b> Purchase Invoice Voucher No  :</b></label><br>
 								<?= h($purchaseInvoice->invoice_no) ?>
 							</div>
 						</div>
-						<div class="col-md-2">
+						<div class="col-md-3">
 							<div class="form-group">
 								<label>Transaction Date <span class="required">*</span></label>
 								<?php echo $this->Form->input('transaction_date', ['type' => 'text','label' => false,'class' => 'form-control input-sm date-picker','data-date-format' => 'dd-mm-yyyy','value' => $purchaseInvoice->transaction_date,'data-date-start-date'=>@$coreVariable[fyValidFrom],'data-date-end-date'=>@$coreVariable[fyValidTo]]); ?>
@@ -40,7 +40,7 @@ if($supplier_state_id== $state_id){
 						</div>
 						<input type="hidden" name="state_id" class="state_id" value="<?php echo $state_id;?>">
 						<input type="hidden" name="is_interstate" id="is_interstate" value="<?php echo $is_interstate;?>">
-						<div class="col-md-3">
+						<div class="col-md-4">
 								<label>Supplier</label>
 								<?php echo $this->Form->control('q',['class'=>'form-control input-sm supplier_state_id ','label'=>false,'type'=>'hidden','value'=>$supplier_state_id]);
 									 
@@ -48,15 +48,15 @@ if($supplier_state_id== $state_id){
 								?>
 						</div>
 						
-						<div class="col-md-3">
-								<label>Purchase Account</label>
-								<?php echo $this->Form->control('purchase_ledger_id',['empty'=>'-Select Purchase-', 'class'=>'form-control input-sm supplier_ledger_id select2me','label'=>false, 'options' => $Accountledgers,'required'=>'required','value'=>$purchaseInvoice->purchase_ledger_id]);
+						<div class="col-md-1">
+							<!--	<label>Purchase Account</label>-->
+								<?php echo $this->Form->control('purchase_ledger_id',['empty'=>'-Select Purchase-', 'class'=>'form-control input-sm supplier_ledger_id select2me','label'=>false, 'type'=>'hidden','options' => $Accountledgers,'required'=>'required','value'=>$purchaseInvoice->purchase_ledger_id]);
 								?>
 						</div>
 						
 					</div>
 					<div class="row">
-						<div class="col-md-3">
+						<div class="col-md-4">
 							<div class="form-group">
 								<label>Supplier Invoice No. </label>
 								<?php echo $this->Form->control('supplier_invoice_no',['class'=>'form-control input-sm','label'=>false,'placeholder'=>'supplier  invoice no.','value'=>$purchaseInvoice->supplier_invoice_no]); ?>
@@ -115,7 +115,7 @@ if($supplier_state_id== $state_id){
 										<td  width="6%" align="center">
 											<?php
 											
-												echo $this->Form->input('q', ['label' => false,'class' => 'form-control input-sm gst_figure_id numberOnly','placeholder'=>'','type'=>'hidden']);
+												echo $this->Form->input('q', ['label' => false,'class' => 'form-control input-sm gst_figure_id numberOnly','value'=>$purchase_invoice_row->item_gst_figure_id,'placeholder'=>'','type'=>'hidden']);
 												
 												echo $this->Form->input('q', ['label' => false,'class' => 'form-control input-sm gst_percentage numberOnly','value'=>$purchase_invoice_row->gst_percentage,'style'=>'text-align:right','placeholder'=>'','type'=>'text','tabindex'=>'-1']);
 												
@@ -306,6 +306,7 @@ if($supplier_state_id== $state_id){
 	//add_row();
 	$('.add_row').die().live('click',function(){
 			add_row();
+			
 	}) ;
 	
 	function add_row()
