@@ -73,9 +73,9 @@ License: You must have a valid license purchased only from themeforest(the above
 				<!-- BEGIN LOGO -->
 				<div class="page-logo" style="padding-left:2px;">
 					<a href="javascript:" style="margin-top: 5px;font-size: 16px;font-weight: bold;color: white;text-decoration: none;line-height: 15px;">
-						<span style="font-size:13px;"><?php echo $coreVariable['company_name']; ?></span> <!--(<span style="font-size:13px;"><?php echo $coreVariable['location_name']; ?>)</span><br/>-->
-						<span style=" text-align:center;font-size:10px;">(<?php echo $coreVariable['fyValidFrom']; ?> to <?php echo $coreVariable['fyValidTo']; ?>)</span>
-					</a>
+					
+						<span style="font-size:13px;"><?php echo $this->Html->image('logo.png',['style'=>'height: 45px;width: 200px;']); ?><?php/* echo $coreVariable['company_name'];*/ ?></span> <!--(<span style="font-size:13px;"><?php/* echo $coreVariable['location_name'];*/ ?>)</span><br/>-->
+						
 					<div class="menu-toggler sidebar-toggler hide">
 						<!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
 					</div>
@@ -105,6 +105,7 @@ License: You must have a valid license purchased only from themeforest(the above
 				<!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
 				<!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
 				<ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+				
 					<?= $this->element('menu'); ?>
 				</ul>
 				<!-- BEGIN CONTENT -->
@@ -116,6 +117,7 @@ License: You must have a valid license purchased only from themeforest(the above
 						<div class="col-md-12">
 							<div id="toast-container" class="toast-top-right" aria-live="polite" role="alert">
 								<?= $this->Flash->render() ?>
+							
 							</div>
 							<?= $this->fetch('content') ?>
 						</div>

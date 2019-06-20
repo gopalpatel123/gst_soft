@@ -37,7 +37,7 @@ $this->set('title', 'Items');
 								<th scope="col" class="actions"><?= __('Sr') ?></th>
 							<!--	<th scope="col"><?= $this->Paginator->sort('Item Code') ?></th>-->
 								<th scope="col"><?= $this->Paginator->sort('name') ?></th>
-								<th scope="col"><?= $this->Paginator->sort('unit_id') ?></th>
+								<!--<th scope="col"><?= $this->Paginator->sort('unit_id') ?></th>-->
 								<th scope="col"><?= $this->Paginator->sort('HSN_code') ?></th>
 								<th scope="col" class="actions"><?= __('Actions') ?></th>
 							</tr>
@@ -48,7 +48,7 @@ $this->set('title', 'Items');
 								<td><?= h(++$page_no) ?></td>
 							<!--	<td><?php /* = h($item->item_code) */?></td>-->
 								<td><?= h($item->name) ?></td>
-								<td><?= $item->unit->name ?></td>
+								<!--<td><?php /*= $item->unit->name */?></td>-->
 								<td><?= h($item->hsn_code) ?></td>
 								<td class="actions">
 								<?php if (in_array("60", $userPages)){?>

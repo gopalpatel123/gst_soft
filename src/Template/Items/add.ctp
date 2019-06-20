@@ -36,10 +36,16 @@ $this->set('title', 'Create Item');
 									<?php echo $this->Form->control('hsn_code',['class'=>'form-control input-sm','label'=>false,'placeholder'=>'HSN Code']); ?>
 								</div>
 							</div>
-							<div class="col-md-6">
+							<!--<div class="col-md-6">
 								<div class="form-group">
 									<label>Unit <span class="required">*</span></label>
 									<?php echo $this->Form->control('unit_id',['class'=>'form-control input-sm select2me','label'=>false, 'options' => $units,'required'=>'required']); ?>
+								</div>
+							</div>-->
+							<div class="col-md-6">
+								<div class="form-group">
+									<label >Gst Rate  </label>
+									<?php echo $this->Form->control('first_gst_figure_id',['class'=>'form-control input-sm select2me','label'=>false,'empty'=>'-GST Figure-', 'options' => $gstFigures,'required'=>'required']); ?>
 								</div>
 							</div>
 						</div>
@@ -79,12 +85,7 @@ $this->set('title', 'Create Item');
 								</div>
 							</div>
 						
-							<div class="col-md-6">
-								<div class="form-group">
-									<label >Gst Rate  </label>
-									<?php echo $this->Form->control('first_gst_figure_id',['class'=>'form-control input-sm select2me','label'=>false,'empty'=>'-GST Figure-', 'options' => $gstFigures,'required'=>'required']); ?>
-								</div>
-							</div>
+							
 						
 						</div>
 						

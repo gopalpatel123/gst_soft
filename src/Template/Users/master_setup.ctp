@@ -32,7 +32,7 @@ $this->set('title', 'Master Setup');
 					</div>
 					<?php }*/?>
 					<?php
-					$target=array("64","65");
+					/*$target=array("64","65");
 					if(!empty(count(array_intersect($userPages, $target)))){?>
 					<div class="col-md-6">
 						<span class="caption-subject bold ">Units</span>
@@ -45,10 +45,10 @@ $this->set('title', 'Master Setup');
 							<?php }?>
 						</div>
 					</div>
-					<?php }?>
+					<?php } */?>
 					
 					<?php
-					$target=array("64","65");
+					/*$target=array("64","65");
 					if(!empty(count(array_intersect($userPages, $target)))){?>
 					<div class="col-md-6">
 						<span class="caption-subject bold ">Weights</span>
@@ -61,7 +61,7 @@ $this->set('title', 'Master Setup');
 							<?php }?>
 						</div>
 					</div>
-					<?php }?>
+					<?php } */?>
 					<?php
 					$target=array("61","62");
 					if(!empty(count(array_intersect($userPages, $target)))){?>

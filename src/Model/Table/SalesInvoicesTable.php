@@ -96,6 +96,9 @@ class SalesInvoicesTable extends Table
 		$this->hasMany('ReferenceDetails', [
             'foreignKey' => 'sales_invoice_id'
         ]);
+		$this->hasMany('Units', [
+            'foreignKey' => 'unit_id'
+        ]);
     }
 
     /**

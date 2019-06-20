@@ -681,7 +681,26 @@ class SalesInvoicesController extends AppController
 						
 		$CashPartyLedgers = $this->SalesInvoices->SalesInvoiceRows->Ledgers->find()
 							->where(['Ledgers.cash ' =>1,'Ledgers.company_id'=>$company_id])->first();
-		$this->set(compact('salesInvoice', 'companies', 'customerOptions', 'gstFigures', 'voucher_no','company_id','itemOptions','state_id', 'partyOptions', 'Accountledgers', 'location_id', 'CashPartyLedgers','FinancialYearData'));
+		/* 					
+		$Weights = $this->SalesInvoices->Weights->find()->contain(['Units']);
+		//pr($Weights->toArray());exit;
+		$Weightoption=[];
+		foreach($Weights as $data)
+		{
+			$Weightoption[]=['text'=>$data->weight.'('.$data->unit->name.')','value'=>$data->id];
+		} */
+		  $Units = $this->SalesInvoices->Units->find('list');
+		 
+		  $gstFigures1 = $this->SalesInvoices->GstFigures->find()->where(['GstFigures.company_id'=>$company_id]);
+			
+		  $gstFigures=[];
+		  foreach($gstFigures1 as $gstdata)
+		{
+			
+			$gstFigures[]=['text'=>$gstdata->name,'value'=>$gstdata->id,'tax_percentage'=>$gstdata->tax_percentage];
+		}
+		
+		$this->set(compact('salesInvoice', 'companies', 'customerOptions', 'gstFiguresoption', 'voucher_no','company_id','itemOptions','state_id', 'partyOptions', 'Accountledgers', 'location_id', 'CashPartyLedgers','FinancialYearData','Units','gstFigures'));
         $this->set('_serialize', ['salesInvoice']);
     }	
 

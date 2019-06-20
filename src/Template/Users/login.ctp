@@ -8,6 +8,7 @@ $this->set('title', 'Login');
 <!-- BEGIN LOGIN FORM -->
 <?= $this->Form->create($user,['class'=>'login-form']) ?>
 	<?= $this->Flash->render() ?>
+	
 	<div class="form-group">
 		<!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
 		<label>Username</label>
